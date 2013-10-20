@@ -1,0 +1,2022 @@
+*Statistics and Data Analysis Notes
+- Peng is researcher on air pollutation and health effects.
+
+* Week One Lectures
+** What Makes R Different?
+- hybrid of command line and programming interface - best and worst
+  of both worlds.
+
+** How to get help
+- People may not know you or what you mean
+- Use resources:
+-- Search Forum
+-- Search Web
+-- Read the Manual
+-- Read FAQ
+-- Inpection and experimentation
+-- Talk to a Friend
+-- Read the source code
+
+- Ask Questions
+-- let people know you looked at above
+-- reproducable example (test data)
+-- expected output to be (maybe you are wrong) and what comes out
+needs to be solved
+-- version information and package information
+-- Type of OS you are using
+
+- Send email to forum
+-- Subject lines should be useful
+-- Describe big picture and goal
+-- Specific problem (minimum amount of information)
+
+- Do not:
+-- Don't claim you found a bug
+-- No groveling (lazy didn't do above)
+-- No multiple mailing lists at once
+-- Don't ask others to debug code
+
+** Background and Overview
+
+*** History of R
+- R is dialect of S
+- S developed at Bell Labs (1976)
+- Version 4 1998
+- R is implimentation of S
+- 1991 R created by Ross Ihaka and Robert Gentleman
+- Announced in 1993 to public
+- Martin Machler convinved Ross and Robert to release R under GNU GPL
+- 2000 R 1.0.0 released
+- 2012 R 2.15.1 released
+
+*** Features of R
+- will run on almost any OS (including PlayStation 3)
+- functionality is divided into packages
+- strong graphics
+- GPL (4 freedoms)
+
+*** Drawbacks
+- 40 year old technology is platform
+- little support for 3d graphics (but have improved)
+- no corporate help line or contact for feature (you have to build it)
+- objects stored in physical memory (some advancements made)
+- not ideal for all situations
+
+*** Design of system
+- Base download
+-- Base system (base, utils etc)
+-- Recommend packages (boot, nlme etc.)
+
+- 4,000 User contributed packages on CRAN (but must meet certain level
+  of quality)
+- http://bioconductor.org project (genomic and biological data
+  analysis)
+- Others
+
+*** Documentation
+
+- An introduction to R
+- Writing R extensions
+- R Data Import/Export
+- R installation and Admistration
+- R Internals
+
+
+
+** Data Types
+Everything in R is an object:
+*** five basic 'atomic' classes of objects
+- character
+- numeric
+- integer
+- complex numbers
+- logical
+
+*** vector
+- contain only objects of same class
+- but a list can have different classes
+- empty vectors created with vector() function with args: class and length
+
+*** numbers
+- generally as double precision
+- can explicitly define an integer with L after number
+- Inf is infinity can be plus or minus
+- NaN is undefined (not a number)
+
+*** Attributes
+- can be part of an object in R:
+- names, dimnames
+- dimensions
+- class
+- length (length of vector etc.)
+- other user-defined attributed/metadata
+- General function attributes() can set or modify attributes
+
+*** Expressions
+#+BEGIN_SRC R
+ <- assignment operator
+# Error: needs things on both sides
+print(x)
+[1] "1"
+> msg <- "hello"
+# hash is comment character
+#+END_SRC R
+-Evaluation by R engine may or may not show anything.
+-- assignment does not show anything
+-- but putting a variable in the engine will autoprint
+-- same as calling print function
+-- with print the double square brackets shows what element of vector is being
+shown
+#+BEGIN_SRC R
+x <- 1:20 the : creates a sequence 1 to 20
+#+END_SRC R
+- c() concatnates objects to create vectors
+- vector can initialize vectors:
+#+BEGIN_SRC R
+ x <- vector("numeric", length=10) # initializes vector with 0's
+#+END_SRC R
+- concatnating will coerce classes:
+#+BEGIN_SRC R
+y <- c(1.7, "a") ## character is least common denominator
+#+END_SRC R
+-- logical concatnated to numeric is coerced to numeric
+-- logical and character coerced to character
+-- coercsion will happen behind the scenes
+-- you can coerce explicitly (as. character, as.numeric etc)
+-- nonsensical coercion will result in NA's
+
+*** Matrices
+- special type of vectors
+- has dimension attribute
+- created by matrix function
+- by default matrix is filled by columnwise (can be switched)
+- can create matrix by assigning dim attribute eg. dim(x) <= c(5,2)
+- column binding (cbind) and row binding (rbind) can create matrix
+
+*** List
+- like vector but each object can be different
+- used to carry around data in functions
+
+*** Factors
+- used to represent catagorical data
+- treated special by models
+- can be ordered (hierarchical) and unordered
+- factors are better than integers that represent things (self
+  explaining)
+- levels is a special attribute of factors
+- unclass function strips out levels - create an integer with key as
+  to what they mean
+- create an ordering using the levels= argument in the factor function
+
+*** missing values
+- NA or NaN. NA is missing, NaN is not a number
+- NaN is also NA, but NA is not NaN.
+
+*** Data frame
+- stores tabular data
+- special type of list, with each having the same length
+- columns can be different types
+- has attributes row.names
+-data.matrix() can convert data.frame to matrix (with coercion)
+
+*** Names
+- can assign names to elements (self describing data!)
+- matrix can have names (set with dimnames)
+
+** Sub-setting Data
+*** vector operators
+- single square bracket - always returns same type of object. Can be
+  used to get more than one object
+#+BEGIN_SRC R
+x[x>4], x[1:4], c[c=="fruit"] #etc
+#+END_SRC R
+-- NEAT can use lexical orders
+#+BEGIN_SRC R
+x[x>"a"] # returns "b","c", "d", ...
+#+END_SRC R
+-- logical indexing
+#+BEGIN_SRC R
+u <- x > "a" ; x [u]
+#+END_SRC R
+- double square bracket - list of data frame. Object returned may not be same class
+  as parent object.
+- dollar sign - list or data frame that have name.
+*** matrix
+- matrices can be subsetted with i,j notation. leave i or j to get
+  row or columns.
+- subset single number or row of matrix you get a vector (not a 1 by 1
+  matrix) turn off default with drop=FALSE
+*** list
+- single square bracket -
+#+BEGIN_SRC R
+x <- list(foo=1:4, bar=0.6)
+x[1] #returns list can also use ["name"]
+#+END_SRC R
+- double bracket reutrns sequence 1,2,3,4
+- can not use double bracket for multiple objects
+- can use double bracket with computed index:
+
+#+begin_src r
+name <- "foo"
+x[[[[name]]]]  #returns "x[[[["foo"]]]"
+x[[[[c(1,3)]]]] #extracts 3rd item of 1st object
+#+end_src
+
+- partial matching
+#+begin_src r
+x <- list(aardvark = 1:5) ; x$a matches x$aardvark but double
+#+end_src
+
+bracket does not partial match unless exact=FALSE argument is made
+
+*** removing NA's
+#+begin_src r
+x[!is.na(x)] subsets non NA values
+  good <- complete.cases(x,y) #gives non-missing across both vectors;
+  x[good]; y[good]
+  good <- complete.cases(airquality); airquality[good,][1:6]
+#+end_src
+
+
+** Vecotorized Operations
+- Feature in many languages - avoids looping
+- two vectors added together (x and y)
+-- each element is added together when x and y are same length
+- greater than less than operators return logical vector
+-other arithemetic operations are vector operations
+- Can work with matrix multiplication without the % sign around it it
+  is element wise operation
+- makes code easier to write
+** Reading and writing data in R
+- read.table, read.csv
+- readLines for reading lines of text file
+- source R code files
+- dget for reading R code files
+- load for reading saved workspaces
+- unserialize for reading single R objects in binary form
+
+*** write data
+- write.table
+- writeLines
+- dump
+- dput
+- save
+- serialize
+
+*** more on read.table
+- file: connection (string)
+- header: is first line a header
+- sep: how columns are separated
+- colClasses - a vector of column classes
+- nrows - number of rows in dataset
+- comment.char - character string indicating the comment character
+- skip = number of rows to skip
+- stringsAsFactors = should character variables be coded as a factor?
+- read.table has some intuitive defaults - telling up front makes R
+  more efficient
+- read.csv is for csv files (defualt separator is command and
+  header=TRUE)
+
+*** large data
+- read help page
+- estimate memory size (if not enough RAM your done)
+- set comment = "" if no comment lines
+
+#+Name:SetClass
+#+BEGIN_SRC R
+initial <- read.table("datatable.txt", nrows=100)
+classes <- sapply(initial, class)
+tabAll <- read.table("datatable.txt", colClasses = classes)
+#+END_SRC
+
+- Set nrows (if known) helps with memory usage - can overestimate
+
+*** R with large datasets
+- how much memory does my computer have?
+- what other applications are in use?
+- multiuser system?
+- OS 32 or 64 bit?
+
+- rough calc of memory = 1.5 million by 120 columns all numeric:
+-- 1.5 million x 120 x 8 bytes/numeric = 1.34 GB of physical memory
+-- going to need a little more for overhead (twice as much needed for
+read.table)
+
+
+<s and TAB will create code block!
+*** dumping and dputting
+- text format, but contain metadata (type of data in each
+  object). Potentially recoverable.
+- read data source and dget.
+- Editable format. Can recover if corrupted. Longer lived.
+- Version control is workable with textual data (track changes)
+- Unix philosophy - store the data as text
+- BIG
+
+#+begin_src R
+y <- data.frame(a=1, b="a))
+dput(y)
+
+structure(list(a=1, b=structure(1L, .Label ="a",
+class -"factor")), ..
+
+dput(y, file="y.R)
+
+# puts file y.R with y in it.
+
+dump(c("x","y"), file="data.R")
+
+source("data.R") # reconstructs objects
+
+
+#+end_src R
+
+*** Connections
+- /file/ opens a connection (to the file of course!)
+- /gzfile/ opens gzip file connection
+- /bzfile/ opens connection to compressed bzip2
+- /url/ opens a connection to a webpage
+
+file arguments /open/ = 'r' is read only; 'w' is writing;
+'a' is appending; 'rb' 'wb' 'ab' is reading writing or appending
+binary  mode (Windows).
+
+**** Gzip and file Connections
+  #+begin_src R
+con <- file("foo.txt", "r")
+data <- read.csv(con)
+close(con)
+
+# smae as
+
+data <- read.csv(foo.txt")
+
+con <- gzfile("words.gz")
+x <- readLines(con,10)
+x
+close(con)
+
+  #+end_src
+**** HTML FILE Connections
+#+begin_src R
+con <- url("http//www.jhsph.edu", "r")
+x <- readLines(con)
+head(x)
+close(con)
+
+
+#+end_src
+
+*** Edit Code and Setting up Working Directory
+
+
+#+begin_src R
+getwd()
+read.csv("mydata.csv") # can return error if file is not there.
+
+setwd() # will change directory
+
+
+
+
+#+end_src
+
+When you read or write data they will be sent to the working
+directory. Peng suggests creating one directory.
+
+**** Editing script
+- can use R's script editor
+- move between editor and R using Cntrl-A Cntrl -C Cntrl-V
+  (select all - copy-paste)
+- save file in coursera folder you should create then use
+#+begin_src R
+ source("mycode.R")
+#+end_src
+
+assuming you've got the right directory. He did not go into hotkeys
+(to send code to R) or any IDE's such as R Studio or Emacs (insert
+boo's here)
+
+*** Lecture on Macs (I will never afford one I suppose!)
+
+*** Structure of R Object
+#+begin_src R
+str()
+
+#+end_src
+
+Is the most important function in R according to Peng. Diagnostic
+function and an alternative to summary.
+
+- useful for large lists
+- 1 line of output per object
+
+#+begin_src R
+str(str)
+#function (object, ...)
+
+str(lm) # etc.
+
+x <- rnorm(100,2,4)
+summary(x) # five num summary
+str(x) # gives class, 100 elements, first 5 numbers
+
+f <- gl(40,10)
+
+str(f) # returns information of factor levels and first couple
+of numbers.
+
+summary(f) # counts on each levels
+
+data(airquality)
+head(airquality)
+str(airquality) # tells us its a data.frame, first observations on
+each of the vectors (and their classes).
+
+m <- matrix(rnorm(100),10,10)
+str(m) will tell us its a matrix (10 by 10) and first couple of obs.
+
+s <- split(airquality, airquality$Month)
+
+str(s) # givens the list of data frames each data.frame str() applied
+to it. (nice!)
+
+
+#+end_src
+
+Yep its definitely useful!
+* Week Two Lectures
+** Control Structures
+typically used in functions
+- if, else
+- for
+- while
+- repeat
+- break
+- next
+- return
+
+*** if, else and if else
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+rm(list=ls())
+x <- 2
+if ( x > 3 ){
+    y <- 3
+} else {
+    y <- 0
+}
+print(y)
+
+# or can value to assign to y
+x <- 10
+y <- if ( x >3 ){
+    10
+} else {
+    0
+}
+print(y)
+
+# if else
+x <-3
+y <- if (x<3){
+10
+} else if (x>3){
+11
+} else {
+12
+}
+print(y)
+#+END_SRC
+
+#+RESULTS:
+: [1] 0
+: [1] 10
+: [1] 12
+
+
+*** for loops
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+
+
+for ( i in 1:10){
+    print(i)
+}
+#+END_SRC
+
+#+RESULTS:
+
+Loop index i, cycles through. Don't overwright.
+
+Different ways of using for loop (all do the same thing):
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- c("a", "b","c","d")
+
+for(i in 1:4){
+print(x[i])
+}
+
+for (i in seq_along(x)) {
+print(x[i])
+}
+# don't need numbers can use letters
+for(letter in x){
+print(letter)
+}
+
+for (i in 1:4) print(x[i]) # single expression, compact style
+
+# Nested
+
+x <- matrix(1:6,2,3)
+for(i in seq_len(nrow(x))){
+
+for(j in seq_len(ncol(x))){
+print(x[i,j])
+}
+}
+
+#+END_SRC
+
+Nested loops beyond 2 levels is difficult to comprehend can ususally
+use functions to get by without.
+*** While
+Other looping. Takes a logical expression - while TRUE will run loop.
+
+#+BEGIN_SRC R :session *R* :results output graphics :file walk1.png :exports both
+count <- 0
+while(count<10){
+print(count)
+count <- count +1
+}
+
+#Random Walk
+walk <- NULL
+z <- 5
+while(z >=0 && z <=100000){
+walk <- c(walk, z)
+coin <- rbinom(1,1,0.5)
+if(coin==1) { ## random walk
+    z <- z +1
+} else {
+    z <- z -1
+}
+}
+
+plot(walk, type="l", main="A Random Walk starting at 5, stops at 0 or a million")
+                                        #+END_SRC
+
+- Can produce an infinite loop
+- Conditions evaluated from left to right
+- && single logical value is used
+
+*** repeat loops
+- need to call break or it runs forever
+#+BEGIN_SRC R
+x0 <-1
+tol <- 1e-8
+
+repeat{
+x1 <- computeEstimate()
+
+if(abs(x1-x0) < tol){
+    break
+}else{
+    x0 <-x1
+}
+}
+#+END_SRC
+- Uses tolerance to keep looking at algorythm until tolerance value
+  is met. BUT sometimes will not converge - so we should have a max
+  iterations argument - use a for loop and it will eventually reached
+  limit and stop.
+
+*** next
+- used to skip a certain part of loop:
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+for(i in 1:25){
+if (i<=20){
+        ## skip the first 20 iterations
+        next
+}
+print(i)
+}
+                                        #+END_SRC
+
+#+RESULTS:
+: [1] 21
+: [1] 22
+: [1] 23
+: [1] 24
+: [1] 25
+
+*** return
+- Exit entire function and return a value that you pass it.
+- Interupts everything
+
+*** Final Notes
+- Infinite loops should be looked out for
+- Looping functions are generally used with apply (especially when
+  ineracting with data).
+** Control Structures
+- Transition from User to Programmer.
+*** Basics of writing functions
+- created using functions directive
+- R functions are class "function":
+#+BEGIN_SRC R
+f <- function(<args>){
+
+## DO anything
+}
+
+#+END_SRC
+
+- Functions are first class functions. They can be treated like
+  any other objects
++ can be passed to other functions
++ nested so you can define a function inside another function
+- the return value of the function = last expression in the body to
+  be evaluated
+
+- Functions have /names arguments/ which can have /default values/
++ /Formal arguments/ are arguments that are included in the function
+  definition
++ The /formals/ function: returns list of (formal) arguments of a
+  function (included inside the ())
++ Not all functions have formal arguments ?
++ Functions can have missing arguments or might have defaults
+
+- R function arguments can be matched by position or name:
+#+BEGIN_SRC R
+mydata <- rnorm(1000)
+formals(sd)
+
+sd(mydata)
+sd(mydata, na.rm=FALSE)
+
+# OR
+sd(mydata, FALSE)
+
+# or
+sd(x=mydata, na.rm=FALSE)
+
+# or
+
+sd(na.rm=FALSE, mydata)
+
+# first argument is matched to mydata (after assigning mydata)
+# Reversing arguments is a bad idea
+
+#equivalent:
+lm(data=mydata, y~x, model=FALSE, 1:100)
+lm(y ~x, mydata, 1:100,  model=FALSE)
+#+END_SRC
+
+- names arguments are used on the command line (order not so important)
+- functions can be partially matched (if it has a long name) looks for unique match. The order of preference is:
++ check for exact match
++ partial match
++ positional match
+
+*** LAZY EVALUATION
+- Arguments are evaluated only as needed.
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+
+f <- function(a,b){
+     a^2
+}
+f(2)
+#+END_SRC
+
+#+RESULTS:
+: 4
+
+- This function never actually uses the argument b, so called f(2)
+  will NOT produce an error because a=2 (and it does not care about b).
+- BUT:
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+f <- function(a,b){
+print(a)
+print(b)
+}
+
+f(45)
+
+#+END_SRC
+- Produces this:
+#+RESULTS:
+
+- up to print(a) we are ok, but the print(b) throws the error (LAZY
+  EVALUATION) - executes until it bonks on an error.
+
+*** "..." argument.
+- Often used to extend a function.
+- so if you were calling another function inside your function, you
+  can use ... to pass the arguments to the extended function
+- Generic functions (we will talk about this later).
++ dispatch methods for different types of data
+
+- ... is handy if known number of arguments can not be known.
++ paste is example.
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+args(paste)
+args(cat)
+#+END_SRC
+
+#+RESULTS:
+
+- One catch is that anything after ... must be _EXPLICIT and _CANNOT be
+ _PARTIALLY MATCHED_
+
+*** A Diversion on Binding Values to a Symbol
+
+#+BEGIN_SRC R :session *R*
+lm <- function(x) {x *x}
+lm
+
+#+END_SRC
+
+#+RESULTS:
+: function(x) {x *x}
+
+- how does R know what you are talking about?
++ /lm/ in /stats package/
++ /lm/ in you just defined.
+
+- R binds a value to a symbol.
++ Searches through series of /Environments/ for a match.
++ Search .GlobalEnv environment first (users workspace)
++ Then search namespaces of search list (all R packages loaded in R)
++ /Base/ package is last
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+search()
+#+END_SRC
+
+#+RESULTS:
+
++ list of packages are dynamic depending on session - library
+  installs namespace right behind global environment.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+library(NADA)
+search()
+#+END_SRC
+
+#+RESULTS:
+
++ you can have a vector names 'c' (and it would not interfere
+  normally with function 'c') (separate namespaces for functions and non-functions)
+
+*** Scoping Rules (Lexical Scoping)
+- makes it different from S
+- Scoping rules determine how value is bound to variable.
+- Useful for simplifying calculations
+- Sometimes called /static scoping/ and alternative called /dynamic
+  scoping/
+- R uses search list to bind a value to a symbol
+- Consider this:
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+f <- function(x,y){
+x^2 + y / z
+}
+
+
+#+END_SRC
+
+This function has 2 formal args, x and y. There is a symbol z in the
+body. z is a free variable... how assign value to z is the scoping
+rules.
+
+- lexical scoping looks for value in the environment in which the
+  function was defined.
++ x <- 3.14
++ y <- data.frame(x=rnorm(100), y=rnorm(100))
++ and environment is a symbol-value pair
++ every environment has a parent environment
++ create a function and assign to an environment it creates a closure
+
+- if a free variable is encountered, R looks in environment the
+  function was defined in. If not. Search then looks in the parent
+  environment until it hits the top-level environment. If can't find
+  anything it throws an error
+- Possible to define a function outside .GlobalEnv
+-WHY DOES THIS MATTER?
++ DEFINE GLOBAL VARIABLES
++ DEFINE FUNCTIONS INSIDE OTHER FUNCTIONS
+- EXAMPLE constructor functions that construct other functions
+make power returns a function (one function can make many functions)
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+make.power <- function(n){
+pow <- function(x){
+x^n
+}
+pow
+}
+
+cube <- make.power(3)
+square <- make.power(2)
+
+cube(3)
+square(3)
+#+END_SRC
+
+-Produce some different results
+#+RESULTS:
+
+- how do you know what is in the functions environment>
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+ls(environment(cube))
+ls(environment(square))
+
+get("n", environment(cube))
+get("n", environment(square))
+#+END_SRC
+
+#+RESULTS:
+
+- how the new function knows what to do (each has its own environment
+  with things definitions
+
+- /dynamic scoping/ would do this - a free variable looks up value in
+  environment where the function was defined.
+
+- When a function is defined in the .GlobalEnv it will appear to be
+  /dynamic scoping/
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+rm(list=ls())
+g <- function(x){
+a <- 3
+x + a + y
+}
+
+g(2)
+y<-3
+g(2)
+#+END_SRC
+
+#+RESULTS:
+: Error in g(2) (from #3) : object 'y' not found
+: [1] 8
+
+- Other languages with /lexical scoping/
++ Scheme
++ Perl
++ Python
++ Common Lisp (/theorem: all languages converge to Lisp/)
+
+**** Consequence of Lexical Scoping
+- ALL OBJECTS GET STORED IN PHYSICAL MEMORY!
++ Limits big data
+- Every function has to have a pointer to its defining environment
+- in S+ free variable looked up in .GlobalEnv
+
+** Optimization
+- optim and nl, and optimize require pass a function to them, whose
+  argument is a vector of parameters
++ finds minimum or maximize (usually log-likelihood)
++ lexical scoping makes it easy
+- create constructor function that constructs the objective function
++ have data etc. in environment (like baggage)
+
+- example:
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+rm(list=ls())
+make.NegLogLik <- function(data, fixed=c(FALSE,FALSE)){
+    params <- fixed
+    function(p){
+        params[!fixed] <- p
+        mu <- params[1]
+        sigma <- params[2]
+        a <- -0.5 * length(data) * log(2*pi*sigma^2)
+        b <- -0.5 * sum((data -mu)^2)/(sigma^2)
+        -(a+b)
+        }
+}
+#+END_SRC
+
+#+RESULTS:
+
+- Note Optimization functions in R /minimize/ functions, so you need
+  to use the negative log-likelihood
+- fit normal distribution.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+
+set.seed(1); normals <- rnorm(100,1,2)
+nLL <- make.NegLogLik(normals)
+nLL
+ls(environment(nLL))
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+function(p){
+        params[!fixed] <- p
+        mu <- params[1]
+        sigma <- params[2]
+        a <- -0.5 * length(data) * log(2*pi*sigma^2)
+        b <- -0.5 * sum((data -mu)^2)/(sigma^2)
+        -(a+b)
+        }
+<environment: 0x8dfa748>
+[1] "data"   "fixed"  "params"
+#+end_example
+
+- environment is some fancy hex. number e.g. 0x165b1a4
+- data variable is a free variable. But data can look up in the
+  parent environment.
+- now can call optim.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+optim(c(mu=0, sigma=1), nLL)$par
+
+print("fix sigma = 2")
+nLL <- make.NegLogLik(normals, c(FALSE, 2))
+optimize(nLL, c(-1,3))$minimum
+
+print("fix mu =1")
+nLL <- make.NegLogLik(normals, c(1, FALSE))
+optimize(nLL, c(1e6,10))$minimum
+
+
+#+END_SRC
+
+#+RESULTS:
+:       mu    sigma
+: 1.218239 1.787343
+: [1] "fix sigma = 2"
+: [1] 1.217775
+: [1] "fix mu =1"
+: [1] 10.00005
+
+
+- plotting a log-liklihood
+#+BEGIN_SRC R :session *R* :results output graphics :file LL2.png :exports both
+nLL <- make.NegLogLik(normals, c(1, FALSE))
+x <- seq(1.7, 1.9, len=100)
+y <- sapply(x,nLL)
+plot(x, exp(-(y-min(y))), type="l")
+#+END_SRC
+
+#+RESULTS:
+[[file:LL2.png]]
+
+#+BEGIN_SRC R :session *R* :results output graphics :file LL3.png :exports both
+nLL <- make.NegLogLik(normals, c(FALSE, 2))
+x <- seq(0.5, 1.5, len=100)
+y <- sapply(x,nLL)
+plot(x, exp(-(y-min(y))), type="l")
+#+END_SRC
+
+#+RESULTS:
+[[file:LL3.png]]
+
+#+BEGIN_SRC R
+  x <- rlorm(1099)
+  summary(x)
+  function(x){
+      rnorm(n=x)
+  }
+  
+#+END_SRC
+
+** loops lapply
+
+- lapply - loop over a list and evaluation a function for each
+  element in the list
+- sapply - same as sapply but try and simplify result (Hadly was not
+  a found fan of this)
+- apply - apply function over margins of array
+- tapply - apply function over subset of vector
+- mapply- multivariate version of lapply
+- split is an aux. function and is useful in conjunction with lapply
+  (splits into a list of sub-pieces)
+
+*** lapply
+- takes 3 arguments
++ X (a list). If X is not a list it will be coerced into a list
++ FUN ( a function)
++ ... (extra arguments)
++ actual looping is done in C
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+  x <- list(a=1:5, b=rnorm(10))
+  lapply(x, mean)
+
+x <- list(a=1:4, b=rnorm(10), c=rnorm(20,1), d= rnorm(100,5))
+lapply(x,mean)
+
+x <- 1:4
+
+lapply(x,runif)
+
+#suppose wanted nondefault behavior
+
+lapply(x, runif, min=0, max=10) # using the ... part of lapply
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+$a
+[1] 3
+
+$b
+[1] 0.0007906248
+$a
+[1] 2.5
+
+$b
+[1] 0.3138228
+
+$c
+[1] 0.9564341
+
+$d
+[1] 4.955213
+[[1]]
+[1] 0.8173021
+
+[[2]]
+[1] 0.4667681 0.6008101
+
+[[3]]
+[1] 0.7753109 0.5793892 0.8836010
+
+[[4]]
+[1] 0.239424027 0.566268139 0.352741188 0.004927354
+#+end_example
+
+- what goes in is coerced to a list and what comes out /always/ is a
+  list.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+  x <- list(a=matrix(1:4, 2,2), b= matrix(1:6, 3,2))
+  x
+  # extract first column from matrix (need to create function to do this):
+  lapply(x, function(elt) elt[,1])
+  
+  # function is gone at the end of lapply (an anonymous functions)
+  
+#+END_SRC
+
+*** sapply
+- will try and simplyfy results
+- for instance, if all elements in list that comes back has same
+  length - it will create  vector (length 1) or matrix ( if greater
+  than 1).
+- if can't it will return a list
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- list(a=1:4, b=rnorm(10), c=rnorm(20,1), d= rnorm(100,5))
+sapply(x,mean)
+# returns vector
+class(sapply(x,mean))
+
+# error:
+
+mean(x) # mean can not be directly applied to lists
+
+What will this produce?
+x <- list(rnorm(100), runif(100), rpois(100, 1))
+sapply(x, quantile, probs = c(0.25, 0.75))
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+        a         b         c         d 
+2.5000000 0.1305492 0.5659667 4.9743038
+[1] "numeric"
+[1] NA
+Warning message:
+In mean.default(x) : argument is not numeric or logical: returning NA
+Error: unexpected symbol in "What will"
+         [,1]      [,2] [,3]
+25% -0.618038 0.3160058 0.00
+75%  1.042780 0.7072314 1.25
+#+end_example
+
+*** apply function
+- it is common to apply to rows or columns of a matrix
+- apply is not really faster (but used to be true).
+- BUT it involves less typing. Good programers are always lazy.
+
+- X is an array
+- MARGIN is an integer that indicated what should be 'retained'
+- ... 
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+print("apply mean to margin 2")
+x <- matrix(rnorm(200),20,10)
+apply(x,2,mean)
+
+print("apply to sum on margin 1")
+apply(x,1,sum)
+#+END_SRC
+
+#+RESULTS:
+: [1] "apply mean to margin 2"
+:  [1] -0.08059144  0.27418363  0.03584362  0.21994024  0.06815612  0.19964610
+:  [7]  0.08981394  0.21612756 -0.41349666 -0.03998334
+: [1] "apply to sum on margin 1"
+:  [1] -0.25199547 -1.71326303 -1.39673802  2.53807587  2.50789151  4.84289072
+:  [7]  0.77555638  0.26687713  0.80500629  2.76919752  0.70915201 -2.46400163
+: [13] -2.55320265  3.50193432 -5.48892689 -1.08860943  0.28174168  3.28631160
+: [19] -0.09484678  4.15974422
+
+- column in margin 2 (the row dimension has been eliminated)
+- row is margin 1 (collapse the columns and preserve the rows)
+
+*** simple shortcuts
+Quicker than apply (use these where you can)
+- rowSums
+- rowMeans
+- colSums
+- colMeans
+
+**** apply in applying a function
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- matrix(rnorm(200),20,10)
+apply(x,1,quantile, probs=c(0.25,0.75))
+#+END_SRC
+
+#+RESULTS:
+:           [,1]       [,2]      [,3]       [,4]       [,5]       [,6]       [,7]
+: 25% -0.7494342 -0.1943024 0.1416767 -0.5690382 -0.2833529 -1.2615438 -0.8919298
+: 75%  0.1648567  0.9786197 1.1158357  0.7461850  0.4943445  0.7636668  0.1404160
+:           [,8]       [,9]      [,10]      [,11]      [,12]       [,13]
+: 25% -1.2189327 -0.4155182 -0.6233113 -0.5810425 -1.2872726 -0.94053134
+: 75%  0.7143555  0.7148336  0.5424835  0.7457287  0.2537171 -0.01627068
+:         [,14]       [,15]      [,16]      [,17]      [,18]     [,19]      [,20]
+: 25% 0.1806572 -0.47998992 -0.2260248 -0.6586526 -1.0326002 -0.334183 -0.9131633
+: 75% 0.8296728  0.03143724  0.3994114  0.3179249  0.4568312  1.151077 -0.2775658
+
+**** Average of matrix in an array
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+a <- array(rnorm(2 * 2 * 10), c(2, 2, 10))
+apply(a,c(1,2), mean)
+
+print("rowMeans")
+rowMeans(a, dims=2)
+#+END_SRC
+
+#+RESULTS:
+:            [,1]       [,2]
+: [1,] 0.05531152 -0.1375230
+: [2,] 0.54059569 -0.7175895
+: [1] "rowMeans"
+:            [,1]       [,2]
+: [1,] 0.05531152 -0.1375230
+: [2,] 0.54059569 -0.7175895
+
+- average of a bunch of 2 by 2 matrices (collapsing 3rd dimension)
+- rowMeans can work as well (using dims=2).
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- matrix(rnorm(200), 50, 4)
+apply(x,1,sum)
+apply(x,3,mean)
+apply(x,2,min)
+apply(x, c(1,2), mean)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+ [1]  0.91469839 -0.89607967  0.87115289 -1.24270845 -3.40310490  1.01598040
+ [7] -0.27014960 -3.61766286 -1.31293274 -1.96707552 -3.04545842 -0.93560806
+[13]  0.95986800 -2.96309279  2.86968804  1.81003714  2.85291412  0.45964200
+[19] -1.73052653 -0.51534736 -0.84170639 -0.59711781 -2.56008397  2.08969836
+[25]  0.05354084 -2.70807478 -1.70781718  1.01562782  0.44621553  0.57023686
+[31] -0.61083911 -2.66291950 -1.36867949  0.39053229 -0.12405279  1.75578331
+[37] -0.34785904  2.55179150  0.44306952  0.27881822 -3.12367427  1.30461617
+[43]  1.58691788 -0.56544375 -0.94328091  2.19389688  2.99540830  1.43423551
+[49]  0.93788342  1.65244945
+Error in if (d2 == 0L) { : missing value where TRUE/FALSE needed
+[1] -1.602111 -2.366461 -2.073292 -3.312439
+             [,1]        [,2]         [,3]        [,4]
+ [1,] -0.08263468  1.02928567 -0.882295416  0.85034282
+ [2,] -0.91598544 -0.14594315 -0.719215777  0.88506469
+ [3,]  1.83464708 -0.32349721 -1.841556293  1.20155931
+ [4,] -0.04859225  0.41184825 -0.553121800 -1.05284264
+ [5,]  0.45680105 -1.17184189 -1.350904511 -1.33715955
+ [6,] -0.02352597  1.69426382  0.752987962 -1.40774541
+ [7,]  0.70431477  1.16800150 -1.602665832 -0.53980005
+ [8,] -0.42566275 -1.51635221 -0.582407652 -1.09324024
+ [9,] -0.80387736 -1.03917911 -0.049371519  0.57949525
+[10,] -0.58817786 -0.46442080  0.572552563 -1.48702943
+[11,] -1.16205209 -1.36559995 -0.602863004  0.08505662
+[12,]  1.34033324 -0.01022401 -0.332348755 -1.93336854
+[13,]  0.21325274  0.57289153  1.406535535 -1.23281181
+[14,]  0.90376719 -0.12846326 -1.673520996 -2.06487572
+[15,]  0.48504104 -0.61684526  1.322646287  1.67884598
+[16,] -0.27378615  0.20599555  0.232291416  1.64553632
+[17,]  0.46774342  0.08126621 -0.057475779  2.36138027
+[18,]  0.03538621 -0.92090428  1.284731888  0.06042818
+[19,] -0.63488649  0.85158704 -0.857694207 -1.08953288
+[20,]  0.63447249 -0.30698832  0.051409662 -0.89424120
+[21,] -1.25374108  1.20718464 -1.489423679  0.69427372
+[22,]  1.10850940 -0.35861377 -1.204871191 -0.14214225
+[23,] -1.60211120 -1.38120807  0.607399323 -0.18416403
+[24,]  1.00233670 -0.90252903  0.107974682  1.88191601
+[25,] -0.22175555 -0.23923044 -0.007613857  0.52214070
+[26,]  1.08175820 -0.58632632  0.108932292 -3.31243894
+[27,] -0.68519907 -0.27497632  0.608348224 -1.35599001
+[28,] -0.21594442 -0.68423235  1.372814105  0.54299049
+[29,]  0.38903480 -0.83846412 -0.605770800  1.50141564
+[30,]  0.18588151 -0.25525685 -0.374500817  1.01411301
+[31,]  0.28691358 -0.18474485  0.142669308 -0.85567716
+[32,] -0.56680368 -2.36646063 -0.720356077  0.99070089
+[33,] -1.50089810  1.53839867  0.314829804 -1.72100986
+[34,] -0.69468638  0.61983823 -0.056498872  0.52187931
+[35,]  0.53198229 -0.06318368 -0.268807149 -0.32404425
+[36,]  2.18979522  0.30122215 -0.689187062 -0.04604700
+[37,] -1.11036219 -0.50311777  0.619624122  0.64599680
+[38,]  1.12711977 -0.68803071  1.133982823  0.97871961
+[39,]  1.89725905  0.52342318 -1.570274882 -0.40733782
+[40,]  1.22077755  0.30978085 -0.565121650 -0.68661853
+[41,]  0.39388038 -0.35444795 -2.073291642 -1.08981506
+[42,]  0.72172402  0.66267813  0.998428112 -1.07821409
+[43,] -0.11397615  1.38568632  1.049352615 -0.73414490
+[44,]  1.95834981 -0.34350444 -1.125325402 -1.05496372
+[45,] -0.23327922 -0.28094463  0.052869707 -0.48192676
+[46,]  0.76985415  0.37603159 -0.072697625  1.12070877
+[47,]  0.10921022  1.98721805  1.555562423 -0.65658239
+[48,]  0.19765508  0.67224943  0.496917764  0.06741324
+[49,]  1.32528244 -0.21318855 -0.301846282  0.12763581
+[50,]  1.65768448 -0.25937318  1.909331053 -1.65519291
+#+end_example
+
+*** tapply
+- function over a vector (pieces need  summary statistic over)
+- X is a vector
+- INDEX is a factor or list of factors (coerced into factors)
+- FUN is the function to be applied
+- ... contains other arguments to be passed to FUN
+- simplify (TRUE) like sapply simplification
+ 
+#+BEGIN_SRC  R :session *R* :results output graphics :exports both
+x <- c(rnorm(10), runif(10), rnorm(10,1))
+f <- gl(3,10) # generate levels
+f
+tapply(x,f,mean)
+#+END_SRC R
+
+#+RESULTS:
+:  [1] 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3
+: Levels: 1 2 3
+:          1          2          3 
+: 0.01597139 0.64677255 0.78122987
+
+- if you don't simplify the results you will get back a list.
+
+Can get a complicated thing back with this as well:
+#+BEGIN_SRC R #+BEGIN_SRC R :session *R* :results output graphics :exports both
+
+tapply(x,f,range)
+
+#+END_SRC
+
+#+RESULTS:
+: $`1`
+: [1] -1.858374  2.665073
+: 
+: $`2`
+: [1] 0.1213898 0.9663025
+: 
+: $`3`
+: [1] -0.4777994  3.4164898
+
+*** split
+- takes a vector or other objects and splits them by a factor or list
+  of factors.
+
+- x is a vector
+- f is a factor or list of factors
+- drop indicated if empty factors will be dropped.
+
+#+BEGIN_SRC R #+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- c(rnorm(10), runif(10), rnorm(10,1))
+f <- gl(3,10)
+split(x,f)
+
+# returns a list of length 3 with the 3 distributions in each
+
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+$`1`
+ [1] -0.9149687 -0.2134161 -2.3816669  1.1688452  0.3543111 -1.3458502
+ [7] -1.2353539  3.0688537  1.0226560  0.1385539
+
+$`2`
+ [1] 0.2740592 0.6545325 0.3280735 0.9720312 0.4082281 0.7032434 0.9473012
+ [8] 0.9835419 0.3961039 0.5258682
+
+$`3`
+ [1]  1.8260637 -0.1097444  1.0650290  0.5230418  3.5565063  0.8992400
+ [7]  1.0130989  1.6361745 -0.4191009  1.1664670
+
+#+end_example
+
+- can also do some real fun here with plots:
+
+#+BEGIN_SRC R #+BEGIN_SRC R :session *R* :results output graphics :exports both
+
+lapply(split(x,f), mean)
+
+lapply(split(x,f), hist)
+
+print("Some more things to do")
+library(datasets)
+head(airquality)
+
+# calculate mean for each month of all the columns
+
+s <- split(airquality, airquality$Month)
+lapply(s, function(x) colMeans(x[c("Ozone", "Solar.R", "Wind")], na.rm=TRUE))
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+$`1`
+[1] -0.03380357
+
+$`2`
+[1] 0.6192983
+
+$`3`
+[1] 1.115678
+$`1`
+$breaks
+[1] -3 -2 -1  0  1  2  3  4
+
+$counts
+[1] 1 2 2 2 2 0 1
+
+$density
+[1] 0.1 0.2 0.2 0.2 0.2 0.0 0.1
+
+$mids
+[1] -2.5 -1.5 -0.5  0.5  1.5  2.5  3.5
+
+$xname
+[1] "X[[1L]]"
+
+$equidist
+[1] TRUE
+
+attr(,"class")
+[1] "histogram"
+
+$`2`
+$breaks
+[1] 0.2 0.4 0.6 0.8 1.0
+
+$counts
+[1] 3 2 2 3
+
+$density
+[1] 1.5 1.0 1.0 1.5
+
+$mids
+[1] 0.3 0.5 0.7 0.9
+
+$xname
+[1] "X[[2L]]"
+
+$equidist
+[1] TRUE
+
+attr(,"class")
+[1] "histogram"
+
+$`3`
+$breaks
+[1] -1  0  1  2  3  4
+
+$counts
+[1] 2 2 5 0 1
+
+$density
+[1] 0.2 0.2 0.5 0.0 0.1
+
+$mids
+[1] -0.5  0.5  1.5  2.5  3.5
+
+$xname
+[1] "X[[3L]]"
+
+$equidist
+[1] TRUE
+
+attr(,"class")
+[1] "histogram"
+[1] "Some more things to do"
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6
+$`5`
+    Ozone   Solar.R      Wind 
+ 23.61538 181.29630  11.62258 
+
+$`6`
+    Ozone   Solar.R      Wind 
+ 29.44444 190.16667  10.26667 
+
+$`7`
+     Ozone    Solar.R       Wind 
+ 59.115385 216.483871   8.941935 
+
+$`8`
+     Ozone    Solar.R       Wind 
+ 59.961538 171.857143   8.793548 
+
+$`9`
+    Ozone   Solar.R      Wind 
+ 31.44828 167.43333  10.18000
+#+end_example
+
+- Or you can use sapply
+#+BEGIN_SRC R #+BEGIN_SRC R :session *R* :results output graphics :exports both
+sapply(s, function(x) colMeans(x[,c("Ozone", "Solar.R", "Wind")], na.rm=TRUE))
+#+END_SRC
+
+#+RESULTS:
+:                 5         6          7          8         9
+: Ozone    23.61538  29.44444  59.115385  59.961538  31.44828
+: Solar.R 181.29630 190.16667 216.483871 171.857143 167.43333
+: Wind     11.62258  10.26667   8.941935   8.793548  10.18000
+
+**** splitting on more than one level
+
+- more than one factor
+- combinations
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- rnorm(10)
+f1 <- gl(2,5)
+f2 <- gl(5,2)
+f1
+f2
+interaction(f1,f2)
+# 10 different levels
+
+#interactions can create empty levels!
+
+str(split(x, list(f1,f2))) # automatically creates interaction
+
+str(split(x, list(f1,f2), drop=TRUE)) # automatically creates interaction
+#+END_SRC
+
+*** mapply
+- loop function multivariate apply
+- where to use - what if you have 2 lists - 1 for each arg of function
+- can use for loop.
+- or can use mapply
+- ARGS
++ FUN is function
++ ... is arguments to apply over (must equal the number of functions)
++ MoreArgs is a list of other arguments to FUN
++ SIMPLIFY indicates whether the result should be simplified.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+mapply(rep, 1:4, 4:1)
+
+    
+    #+END_SRC
+
+#+RESULTS:
+#+begin_example
+[[1]]
+[1] 1 1 1 1
+
+[[2]]
+[1] 2 2 2
+
+[[3]]
+[1] 3 3
+
+[[4]]
+[1] 4
+#+end_example
+
+- mapply can be used for a lot of arguments.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+  
+  noise <- function(n, mean, sd){
+      rnorm(n,mean, sd)
+  }
+  
+  noise(5,1,2)
+  # this does not do what he wants:
+# what he wants 1 normal with mean 1, 2 normals with mean 2 etc.
+
+  noise(1:5,1:5,2)
+  
+
+# but this works:
+
+mapply(noise, 1:5, 1:5, 2)
+  
+#+END_SRC
+
+ - *instantly vectorize the function!*
+
+** Debugging tools
+- built in with R
+- figure out /what is wrong/ after you find a problem
+- =message= Notification/ FYI
+- =warning= indication is unexpected event (may not be a problem)
+- =error= stops execution of function - and prints a message
+  (produced by stop function
+- =condition= a generic event that can be created by a function
+  (generic)
+
+*** WARNING
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+log(-1)
+#+END_SRC
+
+#+RESULTS:
+: [1] NaN
+: Warning message:
+: In log(-1) : NaNs produced
+
+- may be fine or not...
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+  printmessage <- function(x){
+      if(x>0)
+          print("X is greater than zero")
+      else
+          print("X is less than or equal to zero")
+      invisible(x) # return object but will not autoprint
+  }
+
+printmessage(1)
+
+printmessage(NA)
+#+END_SRC
+
+#+RESULTS:
+: [1] "X is greater than zero"
+: Error in if (x > 0) print("X is greater than zero") else print("X is less than or equal to zero") (from #2) : 
+:   missing value where TRUE/FALSE needed
+
+- has to error out - missing value(NA) was expecting T/F and it got
+  NA which is neither.
+
+- printmessage 2:
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+  printmessage2 <- function(x){
+      if(is.na(x))
+         print("X is missing value")
+         
+         else if(x>0)
+          print("X is greater than zero")
+  
+         else
+          print("X is less than or equal to zero")
+      invisible(x) # return object but will not autoprint
+  }
+  
+      x <- log(-1)
+      printmessage2(x)
+      
+#+END_SRC
+- not an error but not what might be expected...
+#+RESULTS:
+: Warning message:
+: In log(-1) : NaNs produced
+: [1] "X is missing value"
+
+- when you think something has gone wrong:
+
++ what is your input? how did you call the function?
++ what were you expecting? output, messages or other results?
++ what were the results?
++ how does what you get differ from the expectation?
++ were your expectations correct to begin with?
++ can you reproduce the problem?
++ can you reproduce the problem that you had (could be a real problem
+  over the web or on a network machine)?
+
+*** Debugging tools
+- =traceback= prints out the function call stack after an error
+  occurs; does nothing if there's no error.
+- =debug= flags a function for "debug" mode which allows you to step
+  through execution one line at a time
+- =browser= suspends execution of a function wherever it is called
+  and puts things into debug mode
+- =trace= allows you to insert debugging code into a specific place
+  of your function
+- =recover= allows you to modify the behavior so that you can browse
+  the function call stack
+
+These are interactive tools specifically designed to pick through a function.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+rm(list=ls())
+mean(x)
+traceback()
+#+END_SRC
+
+#+RESULTS:
+: Error in mean(x) : object 'x' not found
+: 1: mean(x)
+
+- mean was where the error occurred
+- must execute immediately after error.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+lm(y ~ x)
+traceback()
+#+END_SRC
+
+#+RESULTS:
+: Error in eval(expr, envir, enclos) : object 'y' not found
+: 7: eval(expr, envir, enclos)
+: 6: eval(predvars, data, env)
+: 5: model.frame.default(formula = y ~ x, drop.unused.levels = TRUE)
+: 4: stats::model.frame(formula = y ~ x, drop.unused.levels = TRUE)
+: 3: eval(expr, envir, enclos)
+: 2: eval(mf, parent.frame())
+: 1: lm(y ~ x)
+- could not evaluate the formula (y ~x)
+
+*** debug function
+- can debug lm function
+- prints out whole function body
+- give you expression you gave
+- put you in browser
++ workspace environment is inside the function environment
++ press 'n' for next etc. for each line until you get to line with
+  error
++ if you need a value that is n use print(n) to get it
+
+*** recover function 
+- =options(error=recover)=
+- on error get a function call stack and can select which function
+  you want to enter browser with.
+*** Summary
+- message warning, error are indications of a problem
+- reproduce problems and understand what the expectations are
+- use interactive tools to poke around
+- use your head
+ 
+* Week Three Lectures
+** Simulation
+- Important for statistics and other applications
+*** Distribution Funtions
+
+**** rnorm
+- generate normal variates with a mean and standard deviation
+
+**** dnorm 
+- evaluation normal probability denisty at a point or vector of points
+
+**** pnorm
+- cummulative probability distribution
+
+**** qnorm
+- quantile for normal
+
+**** rpois
+- random variate from poison distribution
+
+**** Notation
+- r (like rnorm) indicates a random variate
+- d (like dnorm) indicates a density function
+- p (like pnorm) indicates a cummulative probability function
+- q (like qnorm) indicates a quantile (given a probability)
+
+
+#+BEGIN_SRC R
+dnorm(x, mean = 0, sd = 1, log=FALSE)
+pnorm(q, mean = 0, sd = 1, lower.tail=TRUE, log.p=FALSE)
+qnorm(p, mean = 0, sd = 1, lower.tail=TRUE, log.p=FALSE)
+rnorm(n, mean = 0, sd = 1)
+#+END_SRC 
+- all require specification of mean and sd and have default mean 0
+  and sd = 1 
+If $\Phi$ is a cumulative distribution function for a standard Normal
+distribution, then =pnorm(q)= = $\Phi(q)$ and =qnorm(q)= =
+$\Phi^-1(q)$.
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- rnorm(10)
+print(x)
+
+x<- rnorm(10,20,2)
+print(x)
+summary(x)
+
+#+END_SRC 
+
+#+RESULTS:
+:  [1] -0.45273131 -0.56479026  0.05370645  0.17776705 -0.04788970  0.57478898
+:  [7] -2.12350057 -0.90655452  0.91085674 -0.29778284
+:  [1] 19.51542 22.27296 20.24073 22.13971 19.43794 18.44052 22.04663 20.32004
+:  [9] 18.96731 21.34068
+:    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+:   18.44   19.46   20.28   20.47   21.87   22.27
+
+
+** Graphics
+
+*** Base
+
+*** Lattice
+
+*** ggplot2
+
+** Reproducable Research
+* Week 4 Notes
+** Colors
+** Regular Expressions and R
+** Classes and Methods
+- both an interactive language and programming language
+- much of the code was writen by John Chambers (who created S)
+- much is documented in the green book (Programning with Data: A
+  Guide to the S Language)
+- OO was designed to allow to cross from user to programmer. 
+- Classes and methods are for the programmer. 
+*** S3 classes/methods
+- informal, new classes of data did not have a formal definition
+- easier to implement
+*** S4 classes/methods
+- formal definitions of data
+- harder to implement 
+- for now S3 and S4 will exist in R and can be mixed. 
+
+- A \class\ is a description of a thing, created using =setClass()=
+- An /object/ is an instance of a class. Objects can be created using
+  =new()=
+- A /method/ is a function that operates only a certain class of
+  objects
+- A /generic function/ figures out the class and finds the method and
+  calls the /method/ for that object
+
+*** Documentation
+- help page for classes and methods (long) 
+- =?setClass ?setMethod ?setGeneric= very technical
+- assumes you are at programming level
+
+*** Determining class
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+class(1)
+class(TRUE)
+class(rnorm(100))
+class(NA)
+class("foo")
+#+END_SRC 
+
+#+RESULTS:
+: [1] "numeric"
+: [1] "logical"
+: [1] "numeric"
+: [1] "logical"
+: [1] "character"
+
+
+- can go farther
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+x <- rnorm(100)
+y <- x + rnorm(100)
+fit <- lm(y ~x)
+class(fit)
+#+END_SRC
+
+#+RESULTS:
+: [1] "lm"
+
+- you might want to customize the output of the function 
+- define a method for the class =lm= that provides the functionality
+- can define new generic
+#+BEGIN_SRC R :session *R* :results output graphics :exports both 
+mean
+
+print
+#+END_SRC
+
+#+RESULTS:
+: function (x, ...) 
+: UseMethod("mean")
+: <bytecode: 0x9656054>
+: <environment: namespace:base>
+: function (x, ...) 
+: UseMethod("print")
+: <bytecode: 0x9655ecc>
+: <environment: namespace:base>
+
+- =UseMethod("mean")= dispatched method for given data type. 
+ 
+*** finding methods in S3 and S4
+- give name of generic will call a function that returns the methods
+  available in S3.
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+methods("mean")
+show # S4 equivalent to print
+
+showMethods("show")
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+[1] mean.Date     mean.default  mean.difftime mean.POSIXct  mean.POSIXlt
+standardGeneric for "show" defined from package "methods"
+
+function (object) 
+standardGeneric("show")
+<bytecode: 0x9ab5134>
+<environment: 0x9a5f4d8>
+Methods may be defined for arguments: object
+Use  showMethods("show")  for currently available ones.
+(This generic function excludes non-simple inheritance; see ?setIs)
+Function: show (package methods)
+object="ANY"
+object="classGeneratorFunction"
+object="classRepresentation"
+object="envRefClass"
+object="function"
+    (inherited from: object="ANY")
+object="genericFunction"
+object="genericFunctionWithTrace"
+object="MethodDefinition"
+object="MethodDefinitionWithTrace"
+object="MethodSelectionReport"
+object="MethodWithNext"
+object="MethodWithNextWithTrace"
+object="namedList"
+object="ObjectsWithPackage"
+object="oldClass"
+object="refClassRepresentation"
+object="refMethodDef"
+object="refObjectGenerator"
+object="signature"
+object="sourceEnvironment"
+object="standardGeneric"
+    (inherited from: object="genericFunction")
+object="traceable"
+#+end_example
+
+- S3 will be method.class notation
+- S4 is not
+
+-define generic function as a function that checks for a method for
+the class
+- call the method and execute
+- if a method does not exist search for a default method (and call if
+  it is exist)
+- if neither exist return an error
+
+*** looking at code for the method
+
+- need to specify generic and the class
+
+#+BEGIN_SRC R :session *R*
+getS3method() # is S3
+getMethod() # is S4
+
+###### EXAMPLE
+
+set.seed(2)
+x <- rnorm(100)
+mean(x)
+#+END_SRC
+
+#+RESULTS:
+: Error in getS3method() : argument "f" is missing, with no default
+: Error in getGeneric(f, FALSE) : argument "f" is missing, with no default
+: [1] -0.03069816
+
+#+BEGIN_SRC R :session *R* 
+head(getS3method("mean","default"))
+tail(getS3method("mean","default"))
+#+END_SRC
+
+#+RESULTS:
+:                                                                      
+: 1 function (x, trim = 0, na.rm = FALSE, ...)                         
+: 2 {                                                                  
+: 3     if (!is.numeric(x) && !is.complex(x) && !is.logical(x)) {      
+: 4         warning("argument is not numeric or logical: returning NA")
+: 5         return(NA_real_)                                           
+: 6     }
+
+#+BEGIN_SRC R :session *R*
+set.seed(3)
+df <- data.frame(x=rnorm(100), y=1:100)
+sapply(df, mean)
+#+END_SRC
+
+#+RESULTS:
+| 0.0110355710943715 |
+|               50.5 |
+
+- the data frame class is =df= 
+- apply the mean function over the data frame (which has integer and
+  numeric data)
+- in each column the function checks the appropriate method
+- in both cases since there is not a specific method =mean= calls the
+  default method
+- notice some methods in S3 are visible (can be called directly) BUT you
+  should *NEVER* call methods directly. If the methods change or
+  whatever you can always keep up to date if the methods change.
+*** Example of class and method
+- this dispatches plot method of numeric data 
+#+BEGIN_SRC R :session *R* :results output graphics :file wk4_1.png :exports both
+set.seed(10)
+x <- rnorm(100)
+plot(x)
+#+END_SRC
+- but if it is a time series (using =as.ts= to convert)
+- a different plotting function is dispatched
+#+BEGIN_SRC R :session *R* :results output graphics :file tsFig.png :exports both
+rm(list=ls())
+set.seed(10)
+x <- rnorm(100)
+x <- as.ts(x)
+plot(x)
+#+END_SRC
+
+*** new classes and methods
+- Why? 
++ You have new data (new to R anyways) without built in ways to manipulate them.
++ new ideas not implimented yet
+
+- typically write methods for
++ print/show
++ summary
++ plot
+- extend R system via classes and methods
++ write a new class but for existing generic (e.g. =print=)
++ write new generics function and new methods for those generics
+
+*** S4 methods
+- explicity definition for every class
+- use setClass function
++ specify the name of the class (at minimum)
++ data elements (/slots/) which are elements that store data
+- =setMethod= to define methods
+- =showClass= gives you information about the class
+
+**** Creating new classes/methods
+- say we want to create a class for =polygon= explicitly (this is new)
+- usually stored in separate file (sourced into R)
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+setClass("polygon", representation(x="numeric", y="numeric"))
+#+END_SRC
+- the slots for the class =polygon= are =x= and =y=
+- the slots can be accessed with the =@= operator
+
+A plot method for the =polygon=
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+  setMethod("plot", "polygon", function(x,y,...){
+      plot(x@x, x@y, type="n", ...)
+      xp <- c(x@x, x@x[1])
+      yp <- c(x@y, x@y[1])
+      lines(xp, yp)
+  
+  })
+   
+#+END_SRC
+
+- notice the =@= operator to access the slots
+- when run, the setMethod 'registers' the method with the system
+- if you close R out - you will have to rededine method
+
+#+BEGIN_SRC R :session *R* :results output graphics :exports both
+showMethods("plot")
+#+END_SRC
+- will show that the ploygon method is registered.
+
+#+BEGIN_SRC R :session *R* :results output graphics :file poly.png :exports both
+p <- new("polygon", x=c(1,2,3,4), y=c(1,2,3,1))
+plot(p)
+#+END_SRC
+
+*** places to go to get help
+- CRAN (packages that use S4)
++ SparseM, flexm, lme3
+- bioconductor site
+- stats4 (comes with R) has mle methods in S4
