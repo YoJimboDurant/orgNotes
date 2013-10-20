@@ -1,0 +1,1206 @@
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>BCNotes.org</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="BCNotes.org"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-10-01 Tue"/>
+<meta name="author" content="Jim Durant"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+/**
+ *
+ * @source: http://orgmode.org/mathjax/MathJax.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ * Copyright (C) 2012-2013  MathJax
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ */
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code below.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code below is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code below.
+*/
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">BCNotes.org</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Week 1 Notes</a>
+<ul>
+<li><a href="#sec-1-1">1.1 Hypothesis Tests</a>
+<ul>
+<li><a href="#sec-1-1-1">1.1.1 Standard Normal R Code</a></li>
+<li><a href="#sec-1-1-2">1.1.2 General Rules of Hypothesis Tests</a></li>
+<li><a href="#sec-1-1-3">1.1.3 Connections with confidence intervals and P Values</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">1.2 POWER</a>
+<ul>
+<li><a href="#sec-1-2-1">1.2.1 What is it</a></li>
+<li><a href="#sec-1-2-2">1.2.2 How to calculate it</a></li>
+<li><a href="#sec-1-2-3">1.2.3 T-test</a></li>
+<li><a href="#sec-1-2-4">1.2.4 Using Monte Carlo to do Power</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">1.3 Hypothesis Testing for comparing 2 means</a>
+<ul>
+<li><a href="#sec-1-3-1">1.3.1 Matched Data</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4 Two Sample Tests</a>
+<ul>
+<li><a href="#sec-1-4-1">1.4.1 Matched Data</a></li>
+<li><a href="#sec-1-4-2">1.4.2 Regression to the mean</a></li>
+<li><a href="#sec-1-4-3">1.4.3 Two Independent groups</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Week 1 Notes</h2>
+<div class="outline-text-2" id="text-1">
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Hypothesis Tests</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Standard Normal R Code</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+
+
+
+<pre class="src src-R">qnorm(.95)
+
+
+xval <span style="color: #008b8b;">&lt;-</span> seq(-3.2, 3.2, length = 1000)
+yval<span style="color: #008b8b;">&lt;-</span> dnorm(xval)
+
+plot(xval, yval, type = <span style="color: #8b2252;">"l"</span>, axes = <span style="color: #228b22;">TRUE</span>, frame = <span style="color: #228b22;">FALSE</span>, lwd = 3, xlab = <span style="color: #8b2252;">""</span>, ylab = <span style="color: #8b2252;">""</span>)
+x <span style="color: #008b8b;">&lt;-</span> seq(qnorm(.95), 3.2, length = 100)
+polygon(c(x, rev(x)),c(dnorm(x), rep(0, length(x))), col = <span style="color: #8b2252;">"salmon"</span>)
+text(mean(x), mean(dnorm(x))+.02, <span style="color: #8b2252;">"5%"</span>, cex = 2)
+text(qnorm(.95), .01, <span style="color: #8b2252;">"1.645"</span>, cex = 2)
+
+
+plot(xval, yval, type = <span style="color: #8b2252;">"l"</span>, axes = <span style="color: #228b22;">TRUE</span>, frame = <span style="color: #228b22;">FALSE</span>, lwd = 3, xlab = <span style="color: #8b2252;">""</span>, ylab = <span style="color: #8b2252;">""</span>)
+x <span style="color: #008b8b;">&lt;-</span> seq(qnorm(.975), 3.2, length = 100)
+polygon(c(x, rev(x)),c(dnorm(x), rep(0, length(x))), col = <span style="color: #8b2252;">"salmon"</span>)
+text(mean(x), mean(dnorm(x))+.02, <span style="color: #8b2252;">"2.5%"</span>, cex = 2)
+text(qnorm(.975), .01, <span style="color: #8b2252;">"1.96"</span>, cex = 2)
+x <span style="color: #008b8b;">&lt;-</span> seq(-3.2, qnorm(.025),length = 100)
+polygon(c(x, rev(x)),c(dnorm(x), rep(0, length(x))), col = <span style="color: #8b2252;">"salmon"</span>)
+text(mean(x), mean(dnorm(x))+.02, <span style="color: #8b2252;">"2.5%"</span>, cex = 2)
+text(qnorm(.025), .01, <span style="color: #8b2252;">"-1.96"</span>, cex = 2)
+text(0, dnorm(0) / 5, <span style="color: #8b2252;">"95%"</span>, cex = 2)
+
+</pre>
+
+
+<p>
+<img src="figure1.png"  alt="figure1.png" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2"><span class="section-number-4">1.1.2</span> General Rules of Hypothesis Tests</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+
+$$\frac{32-30}{10\sqrt{100}} \ge 1.645$$
+
+<ul>
+<li>The \(Z\) test for \(H_0: /mu = /mu_0\) versus
+</li>
+<li>H<sub>1</sub>: \(\mu &lt;\mu_0\)
+</li>
+<li>H<sub>2</sub>: \(\mu \ne \mu_0\)
+</li>
+<li>H<sub>3</sub>: \(\mu &gt; \mu_0\)
+
+</li>
+<li>Test statistic \(TS = \frac{\bar{X} -\mu_0}{S/\sqrt{n}}\)
+
+</li>
+<li>Reject the null hypothesis when
+
+</li>
+<li>\(H_1 : TS \le -Z_{1-\alpha}\)
+</li>
+<li>\(H_2: |TS| \ge Z_{1-\alpha/2}\)
+</li>
+<li>\(H_3: TS \ge Z_{1-\alpha}\)
+</li>
+</ul>
+
+
+<p>
+We want an &alpha; percent chance of rejecting the null hypothesis
+falsely. We look at &alpha;/2 because we want an overall rate of 5%.
+</p>
+
+
+
+<pre class="src src-R">xval <span style="color: #008b8b;">&lt;-</span> seq(-4, 4, length = 1000)
+yval<span style="color: #008b8b;">&lt;-</span> dt(xval, 15)
+plot(xval, yval, type = <span style="color: #8b2252;">"l"</span>, axes = <span style="color: #228b22;">TRUE</span>, frame = <span style="color: #228b22;">FALSE</span>, lwd = 3, xlab = <span style="color: #8b2252;">""</span>, ylab = <span style="color: #8b2252;">""</span>)
+x <span style="color: #008b8b;">&lt;-</span> seq(qt(.975, 15), 4, length = 100)
+polygon(c(x, rev(x)),c(dt(x, 15), rep(0, length(x))), col = <span style="color: #8b2252;">"salmon"</span>)
+text(mean(x), mean(dt(x, 15))+.02, <span style="color: #8b2252;">"2.5%"</span>, cex = 2)
+text(qt(.975, 15), .01, <span style="color: #8b2252;">"2.13"</span>, cex = 2)
+x <span style="color: #008b8b;">&lt;-</span> seq(-4, qt(.025, 15),length = 100)
+polygon(c(x, rev(x)),c(dt(x, 15), rep(0, length(x))), col = <span style="color: #8b2252;">"salmon"</span>)
+text(mean(x), mean(dt(x, 15))+.02, <span style="color: #8b2252;">"2.5%"</span>, cex = 2)
+text(qt(.025, 15), .01, <span style="color: #8b2252;">"-2.13"</span>, cex = 2)
+text(0, dt(0, 15) / 5, <span style="color: #8b2252;">"95%"</span>, cex = 2)
+
+
+</pre>
+
+
+<p>
+<img src="figure2.png"  alt="figure2.png" />
+</p>
+<p>
+Looking for greater than or less than critical values (overall rate
+is 5%)
+</p>
+<p>
+We have forced the type I error rate to be small. We have not fixed
+anything to do with the type II error. We say <i>failed to reject H<sub>0</sub></i>
+rather than accepting H<sub>0</sub>. Small sample size can lead to variability
+in the mean - we did not get enough data to reject. Classic phrase:
+absence of evidence is not evidence of absence. <i>Statistical significance is not scientific significance</i>. A big sample size may
+lead to rejection of the null hypothesis - but the overall difference
+is meaningless.
+</p><ul>
+<li>The region of TS values for which you would reject the null is
+  called the rejection region.
+
+<p>
+ *** Two sides tests
+</p></li>
+<li>Z test required assumption of CLT
+</li>
+<li>If n is small then a Gosset T test is performed
+</li>
+<li>Power is used a lot to calculate sample sizes using guesses of
+  standard errors and level of effect. This is done prior to
+  experiment.
+
+</li>
+<li>Consider example n=16 then:
+</li>
+</ul>
+
+
+<p>
+Consider our example again. Suppose that \(n= 16\) (rather than
+\(100\)). Then consider that
+$$
+.05 = P\left(\frac{\bar X - 30}{s / \sqrt{16}} \geq t_{1-\alpha, 15} ~|~ \mu = 30 \right)
+$$
+</p><ul>
+<li>s=10
+</li>
+<li>n= 16
+</li>
+<li>\bar{X} = 32
+</li>
+</ul>
+
+<p>So that our test statistic is now \(\sqrt{16}(32 - 30) / 10 = 0.8\), while the critical
+value is \(t_{1-\alpha, 15} = 1.75\). We now <span style="text-decoration:underline;">fail to reject</span>.
+</p>
+<p>
+<i>we went from 100 to 16</i> and the <i>t-value went up</i> so we are not
+surprised we did not reject.
+</p>
+<ul>
+<li>Suppose we want to test if \(\mu \ne 30\) (does not make sense as we
+  proposed the problem).
+</li>
+<li>Then
+</li>
+</ul>
+
+
+
+
+$$\alpha = P\left(\left. \left|\frac{\bar X - 30}{s /\sqrt{16}}\right|
+> t_{1-\alpha/2,15} ~\right|~ \mu = 30\right)$$
+
+<ul>
+<li>we <span style="text-decoration:underline;">fail to reject</span> (0.8 &lt; 2.13).
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">add source code for t-tests. </span>
+
+pt(.8, 15, lower.tail=<span style="color: #228b22;">FALSE</span>)
+xval <span style="color: #008b8b;">&lt;-</span> seq(-4, 4, length = 1000)
+yval<span style="color: #008b8b;">&lt;-</span> dt(xval, 15)
+plot(xval, yval, type = <span style="color: #8b2252;">"l"</span>, axes = <span style="color: #228b22;">TRUE</span>, frame = <span style="color: #228b22;">FALSE</span>, lwd = 3, xlab = <span style="color: #8b2252;">""</span>, ylab = <span style="color: #8b2252;">""</span>)
+x <span style="color: #008b8b;">&lt;-</span> seq(.8, 4, length = 100)
+polygon(c(x, rev(x)),c(dt(x, 15), rep(0, length(x))), col = <span style="color: #8b2252;">"salmon"</span>)
+text(mean(x), mean(dt(x, 15))+.02, <span style="color: #8b2252;">"22%"</span>, cex = 2)
+text(0.8, .01, <span style="color: #8b2252;">"0.8"</span>, cex = 2)
+
+
+
+
+</pre>
+
+
+<p>
+<img src="figure3.png"  alt="figure3.png" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-1-3" class="outline-4">
+<h4 id="sec-1-1-3"><span class="section-number-4">1.1.3</span> Connections with confidence intervals and P Values</h4>
+<div class="outline-text-4" id="text-1-1-3">
+
+<ul>
+<li>test H<sub>0</sub>: &mu; = &mu;<sub>0</sub> versus H<sub>a</sub>: &mu; &ne; \m<sub>0</sub>
+</li>
+<li>range of possible values that we do not reject H<sub>0</sub> is confidence
+  interval
+
+</li>
+<li>consider do not reject \(H_0\)
+
+<p>
+ $$\left| \frac{\bar X - \mu_0}{s /\sqrt{n}} \right| \leq t_{1-\alpha/2, n-1}$$
+</p></li>
+</ul>
+
+
+<p>
+impying
+</p>
+
+
+$$  \left|\bar X - \mu_0 \right| \leq t_{1-\alpha/2, n-1} s /\sqrt{n} $$
+
+<p>
+implying
+</p>
+
+
+$$  \bar X - t_{1-\alpha/2, n-1} s /\sqrt{n} < \mu_0
+< \bar X + t_{1-\alpha/2, n-1} s /\sqrt{n}  $$
+
+<p>
+&mu;<sub>0</sub> lies inside the confidence interval.
+</p>
+<p>
+Several uses:
+</p><ol>
+<li>Conveys more information than hypothesis tests
+</li>
+<li>Conveys the range of values that are supported by the data
+</li>
+</ol>
+
+
+<p>
+<i>when can report confidence interval</i>
+</p>
+<ul>
+<li>P-values
+</li>
+<li>the smallest &alpha; for which you still reject the null hypothesis
+  is the attained significance level.
+
+</li>
+<li>P-Value is the probability under the null hypothesis is the
+  probability that the value or more extreme under the null
+  hypothesis.
+
+</li>
+<li>Some level people claim it is measure of evidence. If P-value is
+  small than either the null is true and we have observed something
+  that is rare, or the null hypothesis is <span style="text-decoration:underline;">FALSE</span>.
+</li>
+</ul>
+
+
+
+
+
+
+<pre class="src src-R">pt(.8, 15, lower.tail=<span style="color: #228b22;">FALSE</span>)
+xval <span style="color: #008b8b;">&lt;-</span> seq(-4, 4, length = 1000)
+yval<span style="color: #008b8b;">&lt;-</span> dt(xval, 15)
+plot(xval, yval, type = <span style="color: #8b2252;">"l"</span>, axes = <span style="color: #228b22;">TRUE</span>, frame = <span style="color: #228b22;">FALSE</span>, lwd = 3, xlab = <span style="color: #8b2252;">""</span>, ylab = <span style="color: #8b2252;">""</span>)
+x <span style="color: #008b8b;">&lt;-</span> seq(.8, 4, length = 100)
+polygon(c(x, rev(x)),c(dt(x, 15), rep(0, length(x))), col = <span style="color: #8b2252;">"salmon"</span>)
+text(mean(x), mean(dt(x, 15))+.02, <span style="color: #8b2252;">"22%"</span>, cex = 2)
+text(0.8, .01, <span style="color: #8b2252;">"0.8"</span>, cex = 2)
+pt(0.8, 15, lower.tail=<span style="color: #228b22;">FALSE</span>)
+</pre>
+
+
+<p>
+<img src="figure3.png"  alt="figure3.png" />
+</p>
+<ul>
+<li>By reporting P-value the reader can perform hypothesis tests he or
+  she choses.
+</li>
+<li>2-sided hypothesis is to double smaller of 2-sided P-values
+</li>
+<li>Don't just report P-values give confidence intervals
+</li>
+</ul>
+
+<ul>
+<li id="sec-1-1-3-1">P-Values Limitations<br/>
+<ul>
+<li>P-Values only consider significane unlike CIs
+</li>
+<li>P-values only measure evidence for NULL not the Alternative
+</li>
+<li>Frequently misinterpretted. /Prob. of attaining the value or more
+  extreme in favor of the alternative hypothesis when the calculation
+  is done under the NULL hypothesis./
+</li>
+</ul>
+
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> POWER</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+</div>
+
+<div id="outline-container-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> What is it</h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+<ul>
+<li>Probability of rejecting NULL when it is false labeled &beta;
+</li>
+<li>1- &Beta; is Power
+
+</li>
+<li>Consider RDI example
+</li>
+</ul>
+
+
+
+
+$$P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \right)$$
+
+<ul>
+<li>note the function is specific to &mu;<sub>a</sub>
+</li>
+<li>NOTE as &mu;<sub>a</sub> approaches 30, the power approaches &alpha;.
+</li>
+<li>YOU have to know the value under the alternative you want to plug in
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> How to calculate it</h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+<ul>
+<li>Assume that n is large and the we know &alpha;
+
+</li>
+<li>notice s is replaced by &sigma;
+
+</li>
+<li>no longer a z-statistic because we are considering an alternative
+  hypothesis.
+
+</li>
+<li>Adding and subtracting the mean under the alternative converts it
+  to z-statistic.
+</li>
+</ul>
+
+
+
+
+$$1 -\beta  = $$
+$$P\left(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)$$
+$$ =  P\left(\frac{\bar X - \mu_a + \mu_a - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)$$
+$$ =  P\left(\frac{\bar X - \mu_a}{\sigma /\sqrt{n}} > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)$$
+$$ =  P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}}
+~|~ \mu = \mu_a \right)$$
+
+<ul>
+<li>Suppose we want to detect increase of 2 events per hour
+  above 30. Assume normality and the sample will have &sigma;
+  = 4. Sample size is 16:
+</li>
+<li>\(Z_{1-\alpha} = 1.645\) and
+</li>
+</ul>
+
+<p>\(\frac{\mu_a - 30}{\sigma /\sqrt{n}} = 2 / (4 /\sqrt{16}) = 2\)
+</p>
+<ul>
+<li>\(P(Z &gt; 1.645 - 2) = P(Z &gt; -0.355) = 64\%\)
+</li>
+<li>only gets better as difference gets better than 2.
+</li>
+</ul>
+
+
+<ul>
+<li id="sec-1-2-2-1">Given Power what sample size?<br/>
+<ul>
+<li>Suppose we want power of 0.8
+</li>
+</ul>
+
+
+$$0.80 = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}}
+~|~ \mu = \mu_a \right)$$
+
+<ul>
+<li>set \(z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} = z_{0.20}\)
+  and solve for \(n\)
+
+</li>
+<li>done at phase of study design
+</li>
+<li>The calculation is similiar when &mu; &lt; &mu;<sub>0</sub>
+</li>
+<li>when &mu; &ne; \ m<sub>0</sub>
+</li>
+<li>pick 1-sided but use &alpha;/2 it is <i>right enough</i> it omits some of
+  the probability (that is small enough to be irrelivant).
+</li>
+<li>Power goes up as &alpha; gets larger - under court of law example
+  the odds of convicting an innocent person goes up as the
+  probability of convicting a guilty person goes up.
+</li>
+<li>difference between NULL and ALTERNATE gets big - power goes up
+</li>
+<li>sample size goes up, your power goes up
+</li>
+</ul>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> T-test</h4>
+<div class="outline-text-4" id="text-1-2-3">
+
+<ul>
+<li>Power for T-test is more complicated.
+</li>
+<li>the power is:
+    $$ P\left(\frac{\bar X - 30}{S /\sqrt{n}} &gt; t_{1-\alpha, n-1} <code>|</code> \mu = \mu_a \right)   $$
+
+</li>
+<li>Notice that this is equal to:
+</li>
+</ul>
+
+
+
+
+$$ = P\left(\sqrt{n}(\bar X - 30) > t_{1 - \alpha, n-1} S ~|~ \mu = \mu_a \right)    $$
+
+$$ =P\left(\frac{\sqrt{n}(\bar X - 30)}{\sigma}   > t_{1-\alpha, n-1} \frac{S}{\sigma} ~|~ \mu = \mu_a \right) $$
+
+<ul>
+<li>Continued - how can do with tools we have:
+</li>
+</ul>
+
+
+
+
+$$  P\left(\frac{\sqrt{n}(\bar X - \mu_a)}{\sigma} + \frac{\sqrt{n}(\mu_a - 30)}{\sigma} > \frac{t_{1-\alpha, n-1}}{\sqrt{n-1}}\times \sqrt{\frac{(n-1) S^2}{\sigma^2}} \right)$$
+
+<ul>
+<li>which equal to:
+</li>
+</ul>
+
+
+
+
+$$P\left(Z + \frac{\sqrt{n}(\mu_a - 30)}{\sigma} >  \frac{t_{1 - \alpha, n-1}}{\sqrt{n-1}} \sqrt{\chi^2_{n-1}}\right) $$
+
+<p>
+where Z and &Chi;<sup>2</sup><sub>n-1</sub> are independent standard normal and
+chi-squared random variables
+</p>
+<ul>
+<li>Easy to solve using Monte Carlo
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Using Monte Carlo to do Power</h4>
+<div class="outline-text-4" id="text-1-2-4">
+
+<ul>
+<li>Simulate pairs of Z and &Chi;<sup>2</sup> and check which is bigger. If %1's
+  would be approximate probability.
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-R">nosim <span style="color: #008b8b;">&lt;-</span> 100000
+n <span style="color: #008b8b;">&lt;-</span> 16
+sigma <span style="color: #008b8b;">&lt;-</span> 4
+mu0 <span style="color: #008b8b;">&lt;-</span> 30
+mua <span style="color: #008b8b;">&lt;-</span> 32
+z <span style="color: #008b8b;">&lt;-</span> rnorm(nosim)
+xsq <span style="color: #008b8b;">&lt;-</span> rchisq(nosim, df=15)
+t <span style="color: #008b8b;">&lt;-</span> qt(0.95,15)
+mean(z+sqrt(n) * (mua - mu0)/sigma &gt;
+t/sqrt(n-1) * sqrt(xsq))
+</pre>
+
+<p>
+Returns a vector of 1 (TRUE) and 0 (FALSE). 1 every time left is bigger than right
+side of equation. Mean is the proportion (60%) accuracy: 1/sqrt(100000)
+</p><pre class="example">
+0.60762
+</pre>
+
+
+
+
+
+<pre class="src src-R">x <span style="color: #008b8b;">&lt;-</span> power.t.test(n=16, delta=2, sd=4, type=<span style="color: #8b2252;">"one.sample"</span>, alt=<span style="color: #8b2252;">"one.sided"</span>)
+print(unlist(x))
+
+</pre>
+
+
+<pre class="example">
+[1] 0.60485
+                                    n                                 delta
+                                 "16"                                   "2"
+                                   sd                             sig.level
+                                  "4"                                "0.05"
+                                power                           alternative
+                  "0.604032870954103"                           "one.sided"
+                               method
+"One-sample t test power calculation"
+</pre>
+
+
+<ul>
+<li>Notice that in both cases we gave a <i>TRUE</i> mean and standard
+  deviation - but we only needed to provided the delta (difference in
+  the means divided by the standard deviation).
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Hypothesis Testing for comparing 2 means</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+
+
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1"><span class="section-number-4">1.3.1</span> Matched Data</h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+
+
+
+
+
+<pre class="src src-R">diff <span style="color: #008b8b;">&lt;-</span> test2 - test1
+n <span style="color: #008b8b;">&lt;-</span> sum(!is.na(diff)) <span style="color: #b22222;">#</span><span style="color: #b22222;">49</span>
+mean(diff) <span style="color: #b22222;">#</span><span style="color: #b22222;">2.88</span>
+sd(diff) <span style="color: #b22222;">#</span><span style="color: #b22222;">7.61</span>
+testStat <span style="color: #008b8b;">&lt;-</span> sqrt(n) * mean(diff) / sd(diff) <span style="color: #b22222;">#</span><span style="color: #b22222;">2.65</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">below works out to be 0.01</span>
+2 * pt(abs(testStat), n -1, lower.tail = <span style="color: #228b22;">FALSE</span>)
+<span style="color: #b22222;">##</span><span style="color: #b22222;">uses the R function</span>
+t.test(diff)
+
+</pre>
+
+
+<ul>
+<li id="sec-1-3-1-1">Discussion of matched data<br/>
+
+</li>
+</ul>
+<ul>
+<li id="sec-1-3-1-2">Regression to the mean (or mediocrity)<br/>
+
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Two Sample Tests</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+</div>
+
+<div id="outline-container-1-4-1" class="outline-4">
+<h4 id="sec-1-4-1"><span class="section-number-4">1.4.1</span> Matched Data</h4>
+<div class="outline-text-4" id="text-1-4-1">
+
+<ul>
+<li>comparing 2 groups determine if data are paired.
+</li>
+<li>observations on same subject
+</li>
+<li>compare when match case to control
+
+</li>
+<li>when paired take the difference of the observations.
+</li>
+<li>NULL difference is 0
+</li>
+<li>Alternative is not 0
+</li>
+<li>Test statistic:
+</li>
+</ul>
+
+
+$$ \frac{\bar{X} - \mu{d0}}{S_d/\sqrt{n_d}} $$
+<ul>
+<li>\(\mu_d0\) is the value under the NULL (typically 0)
+</li>
+<li>statistic is a $t<sub>n<sub>d</sub>-1</sub> or \(z\) statistic
+</li>
+<li>\(n_d\) is the number of pairs of observations
+</li>
+<li>$SS<sub>d</sub> is the standard deviation of difference of the pairs
+</li>
+<li>Example from 2 exams (on same students) and testing if there is a
+  difference between the means of the other exams?
+</li>
+<li>plot the variables (test1 and test2)
+</li>
+<li>mean difference plot (Bland and Altman)
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-R">diff <span style="color: #008b8b;">&lt;-</span> test1 - test2
+n <span style="color: #008b8b;">&lt;-</span> sum(!is.na(diff))
+mean(diff)
+sd(diff)
+testStat <span style="color: #008b8b;">&lt;-</span> sqrt(n) * mean(diff)/sd(diff)
+2 * pt(abs(testStat), n-1, lower.tail=<span style="color: #228b22;">FALSE</span>)
+
+<span style="color: #b22222;">#</span><span style="color: #b22222;">or</span>
+t.test(diff)
+
+<span style="color: #b22222;"># </span><span style="color: #b22222;">p = 0.01 so reject NULL</span>
+</pre>
+
+
+<ul>
+<li id="sec-1-4-1-1">Comments<br/>
+<ul>
+<li>Ratios more relevant than pair-wise differences?
+</li>
+<li>if yes, then do the test on the log-observations
+</li>
+<li>when doing plot of var1 and var2 and mean difference plot (Bland
+  and Altman plot)
+</li>
+</ul>
+
+
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-1-4-2" class="outline-4">
+<h4 id="sec-1-4-2"><span class="section-number-4">1.4.2</span> Regression to the mean</h4>
+<div class="outline-text-4" id="text-1-4-2">
+
+<ul>
+<li>Francis Galton saw that for matched data high initial observations
+  tend to lead to low second observations.
+</li>
+<li>sons of tall dads, tend to be a little shorts
+</li>
+<li>dads of tall sons tend to be  a little shorter
+
+</li>
+<li>RTM in detail - normalize both scales (so that their means are both
+  0 and the sd is 1)
+</li>
+<li>The best fitting line is through average and has slope:
+</li>
+</ul>
+
+
+
+
+$$Cor(Test1, Test2) \frac{SD(Test2)}{SD(Test1)} $$
+
+<p>
+and passes through the point where \(x=mean(Test1) y=mean(Test2)\).
+</p>
+<ul>
+<li>It also (because we normalized) passes though the origin (0,0) and
+  has a slope equal to the \(Cor(Test1, Test2)\)
+</li>
+<li>Cor(Test1, Test2) &lt;1 in general
+</li>
+<li>This will be shrunk towards a horizontal line, our expected
+  normalized test score for Test2 can be calculated by mutliplying
+  Test 1 (normalized) times the Cor(Test1, Test2).
+<ul>
+<li>Line adjusts for the the regression to the mean for Test 2
+   (conditioned on Test 1).
+</li>
+</ul>
+
+</li>
+<li>for Test 1 conditioned on Test 2 we need to multiply Test 2 by
+  $Cor(Test1, Test2)<sup>-1</sup>
+</li>
+<li>the first case the line is shrunk towards horizontal line, the the
+  second case the line is shrunk towards the vertical line
+</li>
+<li>Ideal examiner would have little difference between id. line and
+  fitted regression
+</li>
+<li>More unrelated the exam scores are more pronounced regression to
+  the mean
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4-3" class="outline-4">
+<h4 id="sec-1-4-3"><span class="section-number-4">1.4.3</span> Two Independent groups</h4>
+<div class="outline-text-4" id="text-1-4-3">
+
+<ul>
+<li>the extention to 2 independent groups
+</li>
+<li>\(H_0 : \mu_1=\mu_2 vs H_a \mu_1 \ne \mu_2\) or other alternatives
+  (&gt; or &lt;)
+</li>
+<li>Assuming common variance
+
+<p>
+ $$
+ORG-LIST-END-MARKER
+\frac{\bar X - \bar Y}{S_p \sqrt{\frac{1}{n_x} +
+\frac{1}{n_y}}}
+$$
+this follows a \(t_{n_x + n_y -2}\) distribution under the null
+hypothesis with the t-assumptions
+</p>
+
+<ul>
+<li>If assuming common variance is questionable
+</li>
+</ul>
+
+
+$$
+\frac{\bar X - \bar Y}{\sqrt{\frac{S_x^2}{n_x} + \frac{S_y^2}{n_y}}}
+$$
+
+<p>
+follows normal distribution for large values of \(n_x\) and
+\(n_y\). Follows (approx) Student's T if the \(X_i\) and \(Y_i\) are normally distributed.
+</p>
+<ul>
+<li>Appropriate degrees of freedom are
+</li>
+</ul>
+
+
+$$\frac{(S_x^2 / n_x + S_y^2 / n_y)^2}{(S_x^2 / n_x)^2 / (n_x - 1) + (S_y^2 / n_y)^2 / (n_y - 1)}$$
+
+<ul>
+<li>fairly accurate
+</li>
+<li>not a lot of intuition as to why it works this way.
+</li>
+<li>ok not an integer
+</li>
+</ul>
+
+
+<p>
+Final Comments
+</p><ul>
+<li>connection between hypothesis test and confidence interval holds
+</li>
+<li>don't test for equality of means by comparing confidence intervals
+  (definately will reject if they do not overlap, but sometimes
+  overlapping CIs will have rejected means)
+</li>
+<li>abuse of paired data
+</li>
+<li>in general not as powerful
+</li>
+</ul>
+
+
+<ul>
+<li id="sec-1-4-3-1">Example calculation<br/>
+<ul>
+<li>randomly assign students to two teaching modules
+</li>
+<li>same test
+</li>
+</ul>
+
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /><col class="right" /><col class="right" /><col class="right" />
+</colgroup>
+<tbody>
+<tr><td class="left">Group</td><td class="right">N</td><td class="right">Mean Exam Score</td><td class="right">SD Exam Score</td></tr>
+<tr><td class="left">Module1</td><td class="right">50</td><td class="right">86.9</td><td class="right">6.07</td></tr>
+<tr><td class="left">Module2</td><td class="right">50</td><td class="right">89.8</td><td class="right">6.06</td></tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>pooled SD 6.065 (sqrt of average variances!)
+</li>
+<li>test statistic:
+</li>
+</ul>
+
+
+
+
+$$ \frac{89.8-86.8}{6.065\sqrt{\frac{1}{50}+\frac{1}{50}}} $$
+
+<ul>
+<li>look over review notes on formal tests of equality of variances
+</li>
+<li>CAFO IS NOT A FAN
+</li>
+<li>ASSUME NORMALITY IN F-distributions
+</li>
+<li>Bootstrap resampling (not F-distribution) for ratio of CI for the
+  ratio between variances
+</li>
+<li>if not assume not-equality of variances
+</li>
+<li>Suppose you have equal numbers of obs. for 2 groups
+</li>
+<li>if data are matched (truley), then
+</li>
+</ul>
+
+
+
+
+$$
+\sqrt{\frac{\sigma_y^2}{n} + \frac{\sigma_x^2}{n} - 2 \frac{Cov(X, Y)}{n}}
+$$
+
+<p>
+if you ignore matching&hellip;
+$$
+\sqrt{\frac{\sigma_y^2}{n} + \frac{\sigma_x^2}{n}}
+$$
+
+</p><ul>
+<li>in many cases by ignoring correlation you are inflating standard
+  error. In a way you are ignoring information.
+
+</li>
+<li>why not pair all experiments? Sometimes things don't lend
+  themselves to paired design - learning effects on tests etc.
+
+</li>
+<li>crossover designs (some take exam1 then exam2 and some exam2 then
+  exam1)
+</li>
+</ul>
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2013-10-01 Tue</p>
+<p class="author">Author: Jim Durant</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
