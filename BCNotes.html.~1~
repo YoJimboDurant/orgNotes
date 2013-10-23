@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>BCNotes.org</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
@@ -244,17 +243,6 @@ for the JavaScript code below.
 <li><a href="#sec-1-4-1">1.4.1 Matched Data</a></li>
 <li><a href="#sec-1-4-2">1.4.2 Regression to the mean</a></li>
 <li><a href="#sec-1-4-3">1.4.3 Two Independent groups</a></li>
-</ul></li>
-</ul>
-</li>
-<li><a href="#sec-2">2 Week 2 Notes</a>
-<ul>
-<li><a href="#sec-2-1">2.1 Basic two by two table</a></li>
-<li><a href="#sec-2-2">2.2 Score statistics (Score and Wald)</a>
-<ul>
-<li><a href="#sec-2-2-1">2.2.1 Confidence Interval (Wald Interval)</a></li>
-<li><a href="#sec-2-2-2">2.2.2 Confidence Interval (Score test)</a></li>
-<li><a href="#sec-2-2-3">2.2.3 Example Calculation from 2x2 table</a></li>
 </ul>
 </li>
 </ul>
@@ -311,6 +299,9 @@ text(0, dnorm(0) / 5, <span style="color: #8b2252;">"95%"</span>, cex = 2)
 </pre>
 
 
+<p>
+<img src="figure1.png"  alt="figure1.png" />
+</p>
 </div>
 
 </div>
@@ -371,6 +362,9 @@ text(0, dt(0, 15) / 5, <span style="color: #8b2252;">"95%"</span>, cex = 2)
 </pre>
 
 
+<p>
+<img src="figure2.png"  alt="figure2.png" />
+</p>
 <p>
 Looking for greater than or less than critical values (overall rate
 is 5%)
@@ -466,6 +460,9 @@ text(0.8, .01, <span style="color: #8b2252;">"0.8"</span>, cex = 2)
 </pre>
 
 
+<p>
+<img src="figure3.png"  alt="figure3.png" />
+</p>
 </div>
 
 </div>
@@ -555,6 +552,9 @@ pt(0.8, 15, lower.tail=<span style="color: #228b22;">FALSE</span>)
 </pre>
 
 
+<p>
+<img src="figure3.png"  alt="figure3.png" />
+</p>
 <ul>
 <li>By reporting P-value the reader can perform hypothesis tests he or
   she choses.
@@ -813,6 +813,20 @@ side of equation. Mean is the proportion (60%) accuracy: 1/sqrt(100000)
 print(unlist(x))
 
 </pre>
+
+
+<pre class="example">
+[1] 0.60485
+                                    n                                 delta
+                                 "16"                                   "2"
+                                   sd                             sig.level
+                                  "4"                                "0.05"
+                                power                           alternative
+                  "0.604032870954103"                           "one.sided"
+                               method
+"One-sample t test power calculation"
+</pre>
+
 
 <ul>
 <li>Notice that in both cases we gave a <i>TRUE</i> mean and standard
@@ -1173,138 +1187,8 @@ $$
 </ul>
 
 
-
 </li>
 </ul>
-</div>
-</div>
-</div>
-
-</div>
-
-<div id="outline-container-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> Week 2 Notes</h2>
-<div class="outline-text-2" id="text-2">
-
-
-</div>
-
-<div id="outline-container-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Basic two by two table</h3>
-<div class="outline-text-3" id="text-2-1">
-
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<colgroup><col class="left" /><col class="right" /><col class="right" /><col class="right" />
-</colgroup>
-<thead>
-<tr><th scope="col" class="left">Drug</th><th scope="col" class="right">No Side Effects</th><th scope="col" class="right">Side Effects</th><th scope="col" class="right">Total</th></tr>
-</thead>
-<tbody>
-<tr><td class="left">Drug A</td><td class="right">11</td><td class="right">9</td><td class="right">20</td></tr>
-<tr><td class="left">Drug B</td><td class="right">5</td><td class="right">15</td><td class="right">20</td></tr>
-<tr><td class="left">Total</td><td class="right">16</td><td class="right">24</td><td class="right">40</td></tr>
-</tbody>
-</table>
-
-
-<p>
-This is a random trial of 2 drugs with 40 subjects, with half
-randomly assigned to Drug A and half to Drug B. Each drug had same
-active ingredient but different delivery methods. We would like to
-know about the rates of side effects and if there is a difference in the side effect rates between Drug A
-and Drug B.
-</p>
-</div>
-
-</div>
-
-<div id="outline-container-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Score statistics (Score and Wald)</h3>
-<div class="outline-text-3" id="text-2-2">
-
-<ul>
-<li>NULL hypothesis \(H_0:p=p_0\)
-</li>
-<li>test statistic
-</li>
-</ul>
-
-
-$$ \frac{\hat p - p_0}{\sqrt{p_0(1 - p_0) / n}}$$
-<ul>
-<li>follows a \(Z\) distribution at large values of \(n\)
-</li>
-<li>Performs better than Wald test
-</li>
-</ul>
-
-
-
-
-$$
-\frac{\hat p - p_0}{\sqrt{\hat p(1 - \hat p) / n}}
-$$
-
-
-
-</div>
-
-<div id="outline-container-2-2-1" class="outline-4">
-<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> Confidence Interval (Wald Interval)</h4>
-<div class="outline-text-4" id="text-2-2-1">
-
-<ul>
-<li>Wald Interval is used for confidence
-</li>
-</ul>
-
-
-$$
-\hat p \pm Z_{1 - \alpha / 2} \sqrt{\hat p(1 - \hat p) / n}
-$$
-
-</div>
-
-</div>
-
-<div id="outline-container-2-2-2" class="outline-4">
-<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> Confidence Interval (Score test)</h4>
-<div class="outline-text-4" id="text-2-2-2">
-
-<p>\small
-    $$
- \hat p \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) +
-      \frac{1}{2} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right)
-        \pm Z_{1 - \alpha/2}\sqrt{\frac{1}{n + Z_{1 - \alpha / 2}^2}
-        \left[\hat p (1 - \hat p) \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) +
-          \frac{1}{4} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right)
-        \right]}
-   $$
-
-  \normalsize
-</p><ul>
-<li>note that using \(Z_{1-\alpha / 2} = 2\) yields the Agresti/Coull
-  interval
-</li>
-</ul>
-
-
-</div>
-
-</div>
-
-<div id="outline-container-2-2-3" class="outline-4">
-<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> Example Calculation from 2x2 table</h4>
-<div class="outline-text-4" id="text-2-2-3">
-
-<p>$$H_0 : p_A = .1$ verus $H_A : p_A &gt; .1$$
-</p>
-
-
-$$\hat p = 11 / 20 = .55$$
-
-\(\hat p = 11 / 20 = .55\)
 </div>
 </div>
 </div>

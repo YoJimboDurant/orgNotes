@@ -10,11 +10,11 @@
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: noexport
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:
-#+LINK_HOME:
+#+LINK_UP:   
+#+LINK_HOME: 
 #+XSLT:
-#+INFOJS_OPT:
-#+BABEL: :session *R* :cache yes :results output graphics :exports both :tangle yes
+#+INFOJS_OPT: 
+#+BABEL: :session *R* :cache yes :results output graphics :exports both :tangle yes 
 -----
 * Week 1 Notes
 ** Hypothesis Tests
@@ -56,7 +56,7 @@ $$\frac{32-30}{10\sqrt{100}} \ge 1.645$$
 
 - Test statistic $TS = \frac{\bar{X} -\mu_0}{S/\sqrt{n}}$
 
-- Reject the null hypothesis when
+- Reject the null hypothesis when 
 
 1. $H_1 : TS \le -Z_{1-\alpha}$
 2. $H_2: |TS| \ge Z_{1-\alpha/2}$
@@ -106,7 +106,7 @@ is meaningless.
 - Consider example n=16 then:
 
 Consider our example again. Suppose that $n= 16$ (rather than
-$100$). Then consider that
+$100$). Then consider that 
 $$
 .05 = P\left(\frac{\bar X - 30}{s / \sqrt{16}} \geq t_{1-\alpha, 15} ~|~ \mu = 30 \right)
 $$
@@ -120,8 +120,8 @@ value is $t_{1-\alpha, 15} = 1.75$. We now _fail to reject_.
 surprised we did not reject.
 
 - Suppose we want to test if $\mu \ne 30$ (does not make sense as we
-  proposed the problem).
-- Then
+  proposed the problem). 
+- Then 
 
 $$\alpha = P\left(\left. \left|\frac{\bar X - 30}{s /\sqrt{16}}\right|
 > t_{1-\alpha/2,15} ~\right|~ \mu = 30\right)$$
@@ -129,7 +129,7 @@ $$\alpha = P\left(\left. \left|\frac{\bar X - 30}{s /\sqrt{16}}\right|
 - we _fail to reject_ (0.8 < 2.13).
 
 #+BEGIN_SRC R :session *R* :results output graphics :file figure3.png :exports both
-# add source code for t-tests.
+# add source code for t-tests. 
 
 pt(.8, 15, lower.tail=FALSE)
 xval <- seq(-4, 4, length = 1000)
@@ -143,7 +143,7 @@ text(0.8, .01, "0.8", cex = 2)
 
 
 
-#+END_SRC
+#+END_SRC 
 
 *** Connections with confidence intervals and P Values
 - test H_0: \mu = \mu_0 versus H_a: \mu \ne \m_0
@@ -171,19 +171,19 @@ Several uses:
 
 /when can report confidence interval/
 
-- P-values
+- P-values 
 + the smallest \alpha for which you still reject the null hypothesis
   is the attained significance level.
 
 + P-Value is the probability under the null hypothesis is the
   probability that the value or more extreme under the null
-  hypothesis.
+  hypothesis. 
 
 + Some level people claim it is measure of evidence. If P-value is
   small than either the null is true and we have observed something
   that is rare, or the null hypothesis is _FALSE_.
 
-
+   
 #+BEGIN_SRC R :session *R* :results output graphics :file figure3.png :exports both
 pt(.8, 15, lower.tail=FALSE)
 xval <- seq(-4, 4, length = 1000)
@@ -197,7 +197,7 @@ pt(0.8, 15, lower.tail=FALSE)
 #+END_SRC
 
 - By reporting P-value the reader can perform hypothesis tests he or
-  she choses.
+  she choses. 
 - 2-sided hypothesis is to double smaller of 2-sided P-values
 - Don't just report P-values give confidence intervals
 **** P-Values Limitations
@@ -206,18 +206,18 @@ pt(0.8, 15, lower.tail=FALSE)
 - Frequently misinterpretted. /Prob. of attaining the value or more
   extreme in favor of the alternative hypothesis when the calculation
   is done under the NULL hypothesis./
-
+ 
 ** POWER
 *** What is it
 - Probability of rejecting NULL when it is false labeled \beta
 - 1- \Beta is Power
 
-- Consider RDI example
+- Consider RDI example 
 
 $$P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \right)$$
 
 - note the function is specific to \mu_a
-- NOTE as \mu_a approaches 30, the power approaches \alpha.
+- NOTE as \mu_a approaches 30, the power approaches \alpha. 
 - YOU have to know the value under the alternative you want to plug in
 
 *** How to calculate it
@@ -241,13 +241,13 @@ $$ =  P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}}
 - Suppose we want to detect increase of 2 events per hour
   above 30. Assume normality and the sample will have \sigma
   = 4. Sample size is 16:
-- $Z_{1-\alpha} = 1.645$ and
-$\frac{\mu_a - 30}{\sigma /\sqrt{n}} = 2 / (4 /\sqrt{16}) = 2$
+- $Z_{1-\alpha} = 1.645$ and 
+$\frac{\mu_a - 30}{\sigma /\sqrt{n}} = 2 / (4 /\sqrt{16}) = 2$ 
 
 - $P(Z > 1.645 - 2) = P(Z > -0.355) = 64\%$
-- only gets better as difference gets better than 2.
+- only gets better as difference gets better than 2. 
 
-**** Given Power what sample size?
+**** Given Power what sample size? 
 - Suppose we want power of 0.8
 $$0.80 = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}}
 ~|~ \mu = \mu_a \right)$$
@@ -266,7 +266,7 @@ $$0.80 = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}}
 + difference between NULL and ALTERNATE gets big - power goes up
 + sample size goes up, your power goes up
 
-*** T-test
+*** T-test 
 - Power for T-test is more complicated.
 - the power is:
     $$ P\left(\frac{\bar X - 30}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \right)   $$
@@ -293,7 +293,7 @@ chi-squared random variables
 - Simulate pairs of Z and \Chi^2 and check which is bigger. If %1's
   would be approximate probability.
 
-#+BEGIN_SRC R :session *R*
+#+BEGIN_SRC R :session *R* 
 nosim <- 100000
 n <- 16
 sigma <- 4
@@ -318,7 +318,7 @@ print(unlist(x))
 - Notice that in both cases we gave a /TRUE/ mean and standard
   deviation - but we only needed to provided the delta (difference in
   the means divided by the standard deviation).
-
+ 
 ** Hypothesis Testing for comparing 2 means
 
 
@@ -326,7 +326,7 @@ print(unlist(x))
 *** Matched Data
 
 
-#+BEGIN_SRC R :session *R*
+#+BEGIN_SRC R :session *R* 
 
 diff <- test2 - test1
 n <- sum(!is.na(diff)) #49
@@ -350,7 +350,7 @@ t.test(diff)
 + observations on same subject
 + compare when match case to control
 
-- when paired take the difference of the observations.
+- when paired take the difference of the observations. 
 - NULL difference is 0
 - Alternative is not 0
 - Test statistic:
@@ -362,7 +362,7 @@ $$ \frac{\bar{X} - \mu{d0}}{S_d/\sqrt{n_d}} $$
 - Example from 2 exams (on same students) and testing if there is a
   difference between the means of the other exams?
 + plot the variables (test1 and test2)
-+ mean difference plot (Bland and Altman)
++ mean difference plot (Bland and Altman) 
 
 #+BEGIN_SRC R
 diff <- test1 - test2
@@ -379,7 +379,7 @@ t.test(diff)
 #+END_SRC
 
 **** Comments
-- Ratios more relevant than pair-wise differences?
+- Ratios more relevant than pair-wise differences? 
 + if yes, then do the test on the log-observations
 - when doing plot of var1 and var2 and mean difference plot (Bland
   and Altman plot)
@@ -405,7 +405,7 @@ and passes through the point where $x=mean(Test1) y=mean(Test2)$.
   normalized test score for Test2 can be calculated by mutliplying
   Test 1 (normalized) times the Cor(Test1, Test2).
  + Line adjusts for the the regression to the mean for Test 2
-   (conditioned on Test 1).
+   (conditioned on Test 1). 
 + for Test 1 conditioned on Test 2 we need to multiply Test 2 by
   $Cor(Test1, Test2)^-1
 + the first case the line is shrunk towards horizontal line, the the
@@ -437,10 +437,10 @@ $$
 follows normal distribution for large values of $n_x$ and
 $n_y$. Follows (approx) Student's T if the $X_i$ and $Y_i$ are normally distributed.
 
-- Appropriate degrees of freedom are
+- Appropriate degrees of freedom are 
 $$\frac{(S_x^2 / n_x + S_y^2 / n_y)^2}{(S_x^2 / n_x)^2 / (n_x - 1) + (S_y^2 / n_y)^2 / (n_y - 1)}$$
 
-+ fairly accurate
++ fairly accurate 
 + not a lot of intuition as to why it works this way.
 + ok not an integer
 
@@ -485,14 +485,14 @@ $$
 $$
 
 - in many cases by ignoring correlation you are inflating standard
-  error. In a way you are ignoring information.
+  error. In a way you are ignoring information. 
 
 - why not pair all experiments? Sometimes things don't lend
   themselves to paired design - learning effects on tests etc.
 
 - crossover designs (some take exam1 then exam2 and some exam2 then
   exam1)
-
+ 
 
 * Week 2 Notes
 ** Basic two by two table
@@ -509,76 +509,15 @@ active ingredient but different delivery methods. We would like to
 know about the rates of side effects and if there is a difference in the side effect rates between Drug A
 and Drug B.
 
-** Score statistics (Score and Wald)
+** Score statistics
 - NULL hypothesis $H_0:p=p_0$
-- test statistic
-$$ \frac{\hat p - p_0}{\sqrt{p_0(1 - p_0) / n}}$$
+- test statistic 
+$$ $H_0:p=p_0$ for a binomial proportion $$
 - follows a $Z$ distribution at large values of $n$
 - Performs better than Wald test
 
 $$
-\frac{\hat p - p_0}{\sqrt{\hat p(1 - \hat p) / n}}
+$H_0:p=p_0$ for a binomial proportion
 $$
 
 
-*** Confidence Interval (Wald Interval)
-- Wald Interval is used for confidence
-$$
-\hat p \pm Z_{1 - \alpha / 2} \sqrt{\hat p(1 - \hat p) / n}
-$$
-
-*** Confidence Interval (Score test)
-\small
-    $$
- \hat p \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) +
-      \frac{1}{2} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right)
-        \pm Z_{1 - \alpha/2}\sqrt{\frac{1}{n + Z_{1 - \alpha / 2}^2}
-        \left[\hat p (1 - \hat p) \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) +
-          \frac{1}{4} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right)
-        \right]}
-   $$
-
-  \normalsize
-- note that using $Z_{1-\alpha / 2} = 2$ yields the Agresti/Coull
-  interval
-
-*** Example Calculation from 2x2 table
-$$H_0 : p_A = 0.1$ verus $H_A : p_A > 0.1$$
-
-$$\hat p = 11 / 20 = .55$$
-
-$$\hat p = 11 / 20 = .55$$
-
-Reject the NULL, p-value = $P(Z > 6.7) \approx 0$
-
-We accept $H_a$ that p_A >0.1
-
-** Exact Tests
-
-- Use the probability of NULL to calculate the p-value:
-
-    $$P(X_A \geq 11) =
-    \sum_{x=11}^{20}\left(\begin{array}{c}20 \\ x \end{array}\right) .1^x\times .9^{20-x}
-    \approx 0
-    $$
-In R
-#+BEGIN_SRC R  :session *R* :results output graphics :file figure2.png :exports both
-pbinom(10,20,0.1, lower.tail=FALSE)
-#+END_SRC
-
-OR
-#+BEGIN_SRC R  :session *R* :results output graphics :file figure2.png :exports both
-binom.test(10,20,0.1, alternative = "greater")
-#+END_SRC
-
-- Limitations and Comments
-+ Guarentee a type I error rate of at worst no more than \alpha
-+ BUT it can be less
-+ can be inverted for confidence interval (yields a very conservative
-  interval)
-+ Two sided tests calculate the 2 one sided values and double the
-  smaller p-value (practically works)
-
-Stop at line 153 in the notes
-
-https://github.com/bcaffo/MathematicsBiostatisticsBootCamp2/blob/master/Lecture4.tex

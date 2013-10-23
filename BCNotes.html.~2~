@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-
 <script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>BCNotes.org</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
@@ -213,6 +212,8 @@ for the JavaScript code below.
 <h1 class="title">BCNotes.org</h1>
 
 
+<hr/>
+
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -250,13 +251,7 @@ for the JavaScript code below.
 <li><a href="#sec-2">2 Week 2 Notes</a>
 <ul>
 <li><a href="#sec-2-1">2.1 Basic two by two table</a></li>
-<li><a href="#sec-2-2">2.2 Score statistics (Score and Wald)</a>
-<ul>
-<li><a href="#sec-2-2-1">2.2.1 Confidence Interval (Wald Interval)</a></li>
-<li><a href="#sec-2-2-2">2.2.2 Confidence Interval (Score test)</a></li>
-<li><a href="#sec-2-2-3">2.2.3 Example Calculation from 2x2 table</a></li>
-</ul>
-</li>
+<li><a href="#sec-2-2">2.2 Score statistics</a></li>
 </ul>
 </li>
 </ul>
@@ -1220,7 +1215,7 @@ and Drug B.
 </div>
 
 <div id="outline-container-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Score statistics (Score and Wald)</h3>
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Score statistics</h3>
 <div class="outline-text-3" id="text-2-2">
 
 <ul>
@@ -1231,7 +1226,7 @@ and Drug B.
 </ul>
 
 
-$$ \frac{\hat p - p_0}{\sqrt{p_0(1 - p_0) / n}}$$
+$$ \(H_0:p=p_0\) for a binomial proportion $$
 <ul>
 <li>follows a \(Z\) distribution at large values of \(n\)
 </li>
@@ -1243,69 +1238,10 @@ $$ \frac{\hat p - p_0}{\sqrt{p_0(1 - p_0) / n}}$$
 
 
 $$
-\frac{\hat p - p_0}{\sqrt{\hat p(1 - \hat p) / n}}
+\(H_0:p=p_0\) for a binomial proportion
 $$
 
 
-
-</div>
-
-<div id="outline-container-2-2-1" class="outline-4">
-<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> Confidence Interval (Wald Interval)</h4>
-<div class="outline-text-4" id="text-2-2-1">
-
-<ul>
-<li>Wald Interval is used for confidence
-</li>
-</ul>
-
-
-$$
-\hat p \pm Z_{1 - \alpha / 2} \sqrt{\hat p(1 - \hat p) / n}
-$$
-
-</div>
-
-</div>
-
-<div id="outline-container-2-2-2" class="outline-4">
-<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> Confidence Interval (Score test)</h4>
-<div class="outline-text-4" id="text-2-2-2">
-
-<p>\small
-    $$
- \hat p \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) +
-      \frac{1}{2} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right)
-        \pm Z_{1 - \alpha/2}\sqrt{\frac{1}{n + Z_{1 - \alpha / 2}^2}
-        \left[\hat p (1 - \hat p) \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) +
-          \frac{1}{4} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right)
-        \right]}
-   $$
-
-  \normalsize
-</p><ul>
-<li>note that using \(Z_{1-\alpha / 2} = 2\) yields the Agresti/Coull
-  interval
-</li>
-</ul>
-
-
-</div>
-
-</div>
-
-<div id="outline-container-2-2-3" class="outline-4">
-<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> Example Calculation from 2x2 table</h4>
-<div class="outline-text-4" id="text-2-2-3">
-
-<p>$$H_0 : p_A = .1$ verus $H_A : p_A &gt; .1$$
-</p>
-
-
-$$\hat p = 11 / 20 = .55$$
-
-\(\hat p = 11 / 20 = .55\)
-</div>
 </div>
 </div>
 </div>

@@ -1,4 +1,4 @@
-% Created 2013-10-23 Wed 08:50
+% Created 2013-10-20 Sun 13:48
 \documentclass[11pt]{article}
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
@@ -66,6 +66,8 @@ text(mean(x), mean(dnorm(x))+.02, "2.5%", cex = 2)
 text(qnorm(.025), .01, "-1.96", cex = 2)
 text(0, dnorm(0) / 5, "95%", cex = 2)
 \end{verbatim}
+
+\includegraphics[width=.9\linewidth]{figure1.png}
 \subsubsection{General Rules of Hypothesis Tests}
 \label{sec-1-1-2}
 
@@ -101,6 +103,8 @@ text(mean(x), mean(dt(x, 15))+.02, "2.5%", cex = 2)
 text(qt(.025, 15), .01, "-2.13", cex = 2)
 text(0, dt(0, 15) / 5, "95%", cex = 2)
 \end{verbatim}
+
+\includegraphics[width=.9\linewidth]{figure2.png}
 
 Looking for greater than or less than critical values (overall rate
 is 5\%)
@@ -167,6 +171,8 @@ polygon(c(x, rev(x)),c(dt(x, 15), rep(0, length(x))), col = "salmon")
 text(mean(x), mean(dt(x, 15))+.02, "22%", cex = 2)
 text(0.8, .01, "0.8", cex = 2)
 \end{verbatim}
+
+\includegraphics[width=.9\linewidth]{figure3.png}
 \subsubsection{Connections with confidence intervals and P Values}
 \label{sec-1-1-3}
 
@@ -223,6 +229,8 @@ text(mean(x), mean(dt(x, 15))+.02, "22%", cex = 2)
 text(0.8, .01, "0.8", cex = 2)
 pt(0.8, 15, lower.tail=FALSE)
 \end{verbatim}
+
+\includegraphics[width=.9\linewidth]{figure3.png}
 
 \begin{itemize}
 \item By reporting P-value the reader can perform hypothesis tests he or
@@ -382,6 +390,19 @@ side of equation. Mean is the proportion (60\%) accuracy: 1/sqrt(100000)
 x <- power.t.test(n=16, delta=2, sd=4, type="one.sample", alt="one.sided")
 print(unlist(x))
 \end{verbatim}
+
+\begin{verbatim}
+ [1] 0.60474
+                                     n                                 delta 
+                                  "16"                                   "2" 
+                                    sd                             sig.level 
+                                   "4"                                "0.05" 
+                                 power                           alternative 
+                   "0.604032870954103"                           "one.sided" 
+                                method 
+ "One-sample t test power calculation"
+\end{verbatim}
+
 \begin{itemize}
 \item Notice that in both cases we gave a \emph{TRUE} mean and standard
   deviation - but we only needed to provided the delta (difference in
@@ -612,70 +633,6 @@ $$
   exam1)
 \end{itemize}
  
-
 \end{itemize} % ends low level
-\section{Week 2 Notes}
-\label{sec-2}
-\subsection{Basic two by two table}
-\label{sec-2-1}
-
-
-
-\begin{center}
-\begin{tabular}{lrrr}
- Drug    &  No Side Effects  &  Side Effects  &  Total  \\
-\hline
- Drug A  &               11  &             9  &     20  \\
- Drug B  &                5  &            15  &     20  \\
- Total   &               16  &            24  &     40  \\
-\end{tabular}
-\end{center}
-
-
-
-This is a random trial of 2 drugs with 40 subjects, with half
-randomly assigned to Drug A and half to Drug B. Each drug had same
-active ingredient but different delivery methods. We would like to
-know about the rates of side effects and if there is a difference in the side effect rates between Drug A
-and Drug B.
-\subsection{Score statistics (Score and Wald)}
-\label{sec-2-2}
-
-\begin{itemize}
-\item NULL hypothesis $H_0:p=p_0$
-\item test statistic
-\end{itemize}
-$$ \frac{\hat p - p_0}{\sqrt{p_0(1 - p_0) / n}}$$
-\begin{itemize}
-\item follows a $Z$ distribution at large values of $n$
-\item Performs better than Wald test
-\end{itemize}
-
-$$
-\frac{\hat p - p_0}{\sqrt{\hat p(1 - \hat p) / n}}
-$$
-\subsubsection{Confidence Interval (Wald Interval)}
-\label{sec-2-2-1}
-
-\begin{itemize}
-\item Wald Interval is used for confidence
-\end{itemize}
-$$
-\hat p \pm Z_{1 - \alpha / 2} \sqrt{\hat p(1 - \hat p) / n}
-$$
-\subsubsection{Confidence Interval (Score test)}
-\label{sec-2-2-2}
-
-\small
-    $$
- \hat p \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) + 
-      \frac{1}{2} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right) 
-        \pm Z_{1 - \alpha/2}\sqrt{\frac{1}{n + Z_{1 - \alpha / 2}^2} 
-        \left[\hat p (1 - \hat p) \left(\frac{n}{n + Z_{1 - \alpha / 2}^2}\right) +
-          \frac{1}{4} \left(\frac{Z_{1 - \alpha / 2}^2}{n + Z_{1 - \alpha / 2}^2}\right)
-        \right]}
-   $$
-
-  \normalsize
 
 \end{document}
